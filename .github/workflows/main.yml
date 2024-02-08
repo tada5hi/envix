@@ -97,12 +97,11 @@ jobs:
             -   name: Build
                 uses: ./.github/actions/build
 
-            #-   name: Release
-                #env:
-                #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                #    NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-                #
-                # run: npx semantic-release
+            -   name: Release
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                    NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+                run: npx semantic-release
 
     coverage:
         name: Coverage
@@ -125,8 +124,8 @@ jobs:
                 run: |
                     npm run test:coverage
 
-            #-   name: Upload report
-            #    uses: codecov/codecov-action@v3.1.4
-            #    with:
-            #        token: ${{ secrets.codecov }}
-            #        directory: ./coverage/
+            -   name: Upload report
+                uses: codecov/codecov-action@v3.1.4
+                with:
+                    token: ${{ secrets.codecov }}
+                    directory: ./coverage/
