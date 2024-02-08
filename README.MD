@@ -1,4 +1,4 @@
-# typescript-template 🚀
+# envix ⚙️
 
 [![npm version][npm-version-src]][npm-version-href]
 [![npm version][codecov-src]][codecov-href]
@@ -6,7 +6,8 @@
 [![Known Vulnerabilities][snyk-src]][snyk-href]
 [![Conventional Commits][conventional-src]][conventional-href]
 
-This is a package to ...
+
+This library simplifies reading, transforming, and requiring environment variables across runtimes like Node.js, Deno, Bun.js, Browser, and more.
 
 **Table of Contents**
 - [Installation](#installation)
@@ -17,12 +18,72 @@ This is a package to ...
 ## Installation
 
 ```bash
-npm install typescript-template --save
+npm install envix --save
 ```
 
 ## Usage
 
-...
+### Set
+
+```typescript
+import { set } from 'envix';
+
+set('foo', 'bar');
+```
+
+### Read
+
+```typescript
+import { read, set } from 'envix';
+
+set('foo', 'bar');
+
+read('foo'); // string | undefined
+// bar
+
+read('bar', 'baz'); // string
+// baz
+```
+
+### Read Array
+```typescript
+import { readArray, set } from 'envix';
+
+set('foo', 'bar,baz');
+
+readArray('foo'); // string[] | undefined
+// ['bar', 'baz']
+```
+
+### Read Bool
+```typescript
+import { readBool, set } from 'envix';
+
+set('foo', 'true');
+
+readBool('foo'); // boolean | undefined
+// true
+```
+
+### Read Number
+```typescript
+import { readNumber, set } from 'envix';
+
+set('foo', '1.0');
+
+readNumber('foo'); // number | undefined
+// 1.0
+```
+
+### Read Number Array
+```typescript
+import { readNumberArray, set } from 'envix';
+
+set('foo', '1.0,2.1');
+
+readNumberArray('foo'); // number[] | undefined
+// [1.0,2.1]
+```
 
 ## Contributing
 
@@ -36,13 +97,13 @@ Made with 💚
 
 Published under [MIT License](./LICENSE).
 
-[npm-version-src]: https://badge.fury.io/js/typescript-template.svg
-[npm-version-href]: https://npmjs.com/package/typescript-template
-[codecov-src]: https://codecov.io/gh/Tada5hi/typescript-template/branch/master/graph/badge.svg?token=4KNSG8L13V
-[codecov-href]: https://codecov.io/gh/Tada5hi/typescript-template
-[workflow-src]: https://github.com/Tada5hi/typescript-template/workflows/CI/badge.svg
-[workflow-href]: https://github.com/Tada5hi/typescript-template
-[snyk-src]: https://snyk.io/test/github/Tada5hi/typescript-template/badge.svg?targetFile=package.json
-[snyk-href]: https://snyk.io/test/github/Tada5hi/typescript-template?targetFile=package.json
+[npm-version-src]: https://badge.fury.io/js/envix.svg
+[npm-version-href]: https://npmjs.com/package/envix
+[codecov-src]: https://codecov.io/gh/Tada5hi/envix/branch/master/graph/badge.svg?token=4KNSG8L13V
+[codecov-href]: https://codecov.io/gh/Tada5hi/envix
+[workflow-src]: https://github.com/Tada5hi/envix/workflows/CI/badge.svg
+[workflow-href]: https://github.com/Tada5hi/envix
+[snyk-src]: https://snyk.io/test/github/Tada5hi/envix/badge.svg?targetFile=package.json
+[snyk-href]: https://snyk.io/test/github/Tada5hi/envix?targetFile=package.json
 [conventional-src]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white
 [conventional-href]: https://conventionalcommits.org
