@@ -23,20 +23,20 @@ npm install envix --save
 
 ## Usage
 
-### Set
+### Write
 
 ```typescript
-import { set } from 'envix';
+import { write } from 'envix';
 
-set('foo', 'bar');
+write('foo', 'bar');
 ```
 
 ### Read
 
 ```typescript
-import { read, set } from 'envix';
+import { read, write } from 'envix';
 
-set('foo', 'bar');
+write('foo', 'bar');
 
 read('foo'); // string | undefined
 // bar
@@ -47,9 +47,9 @@ read('bar', 'baz'); // string
 
 ### Read Array
 ```typescript
-import { readArray, set } from 'envix';
+import { readArray, write } from 'envix';
 
-set('foo', 'bar,baz');
+write('foo', 'bar,baz');
 
 readArray('foo'); // string[] | undefined
 // ['bar', 'baz']
@@ -57,9 +57,9 @@ readArray('foo'); // string[] | undefined
 
 ### Read Bool
 ```typescript
-import { readBool, set } from 'envix';
+import { readBool, write } from 'envix';
 
-set('foo', 'true');
+write('foo', 'true');
 
 readBool('foo'); // boolean | undefined
 // true
@@ -67,9 +67,9 @@ readBool('foo'); // boolean | undefined
 
 ### Read Number
 ```typescript
-import { readNumber, set } from 'envix';
+import { readNumber, write } from 'envix';
 
-set('foo', '1.0');
+write('foo', '1.0');
 
 readNumber('foo'); // number | undefined
 // 1.0
@@ -77,9 +77,9 @@ readNumber('foo'); // number | undefined
 
 ### Read Number Array
 ```typescript
-import { readNumberArray, set } from 'envix';
+import { readNumberArray, write } from 'envix';
 
-set('foo', '1.0,2.1');
+write('foo', '1.0,2.1');
 
 readNumberArray('foo'); // number[] | undefined
 // [1.0,2.1]

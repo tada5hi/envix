@@ -6,4 +6,4 @@ export * from './read-array';
 export * from './read-bool';
 export * from './read-number';
 export * from './read-number-array';
-export * from './set';
+export * from './write';

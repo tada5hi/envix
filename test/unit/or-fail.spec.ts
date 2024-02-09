@@ -1,10 +1,10 @@
 import {
-    orFail, read, set,
+    orFail, read, write,
 } from '../../src';
 
 describe('src/or-fail.ts', () => {
     it('should read env or fail', () => {
-        set('foo', 'bar');
+        write('foo', 'bar');
 
         let str = orFail(read('foo'));
         expect(str).toEqual('bar');
@@ -16,6 +16,6 @@ describe('src/or-fail.ts', () => {
             expect(1).toEqual(1);
         }
 
-        set('foo', undefined);
+        write('foo', undefined);
     });
 });

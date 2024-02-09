@@ -1,10 +1,10 @@
 import {
-    oneOf, read, readNumber, set,
+    oneOf, read, readNumber, write,
 } from '../../src';
 
 describe('src/one-of.ts', () => {
     it('should read one of env', () => {
-        set('foo', 'bar');
+        write('foo', 'bar');
 
         const str = oneOf([
             read('bar'),
@@ -19,6 +19,6 @@ describe('src/one-of.ts', () => {
         ]);
         expect(strNum).toBeUndefined();
 
-        set('foo', undefined);
+        write('foo', undefined);
     });
 });

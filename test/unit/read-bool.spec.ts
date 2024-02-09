@@ -1,13 +1,13 @@
-import { readBool, set } from '../../src';
+import { readBool, write } from '../../src';
 
 describe('src/read-bool.ts', () => {
     it('should read bool env', () => {
-        set('foo', 't');
+        write('foo', 't');
 
         let result = readBool('foo');
         expect(result).toBeTruthy();
 
-        set('foo', undefined);
+        write('foo', undefined);
 
         result = readBool('foo');
         expect(result).toBeUndefined();

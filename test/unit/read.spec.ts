@@ -1,25 +1,25 @@
-import { read, set } from '../../src';
+import { read, write } from '../../src';
 
 describe('src/read.ts', () => {
     it('should read env', () => {
-        set('foo', 'bar');
+        write('foo', 'bar');
 
         let result = read('foo');
         expect(result).toEqual('bar');
 
-        set('foo', undefined);
+        write('foo', undefined);
 
         result = read('foo', 'baz');
         expect(result).toEqual('baz');
     });
 
     it('should read all env', () => {
-        set('foo', 'bar');
+        write('foo', 'bar');
 
         const result = read();
         const keys = Object.keys(result);
         expect(keys.length).toBeGreaterThanOrEqual(1);
 
-        set('foo', undefined);
+        write('foo', undefined);
     });
 });
