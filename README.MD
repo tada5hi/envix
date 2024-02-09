@@ -65,6 +65,16 @@ readBool('foo'); // boolean | undefined
 // true
 ```
 
+### Read Int
+```typescript
+import { readInt, write } from 'envix';
+
+write('foo', '1.0');
+
+readInt('foo'); // number | undefined
+// 1
+```
+
 ### Read Number
 ```typescript
 import { readNumber, write } from 'envix';
