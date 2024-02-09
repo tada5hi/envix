@@ -1,3 +1,11 @@
+# [1.3.0](https://github.com/tada5hi/envix/compare/v1.2.0...v1.3.0) (2024-02-09)
+
+
+### Features
+
+* add read-float helper ([282b834](https://github.com/tada5hi/envix/commit/282b834b4cd4b8ed7ea0459873a7e7e3e503afa5))
+* optimized read-array & read-number-array helper & enhanced docs ([6dde86f](https://github.com/tada5hi/envix/commit/6dde86f48e5105c9b7c1ed7798f4b3cc9d2bdf99))
+
 # [1.2.0](https://github.com/tada5hi/envix/compare/v1.1.0...v1.2.0) (2024-02-09)
 
 
