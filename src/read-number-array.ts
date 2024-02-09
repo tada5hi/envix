@@ -7,7 +7,10 @@ export function readNumberArray(key: string) : number[] | undefined {
         return undefined;
     }
 
-    const nums = value.split(',').map((el) => toNumber(el));
+    const nums = value.split(',')
+        .filter(Boolean)
+        .map((el) => toNumber(el));
+
     if (nums.some((el) => typeof el === 'undefined')) {
         return undefined;
     }

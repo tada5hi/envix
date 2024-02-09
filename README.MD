@@ -24,6 +24,7 @@ npm install envix --save
 ## Usage
 
 ### Write
+The write method makes it possible to set an environment variable retrospectively for later accesses.
 
 ```typescript
 import { write } from 'envix';
@@ -32,6 +33,9 @@ write('foo', 'bar');
 ```
 
 ### Read
+The read method accepts the key of the environment variable as the first argument and an
+alternative value as the second argument, which is returned if the variable does not exist.
+If no argument is passed, an object with all environment variables is returned.
 
 ```typescript
 import { read, write } from 'envix';
@@ -46,6 +50,8 @@ read('bar', 'baz'); // string
 ```
 
 ### Read Array
+The readArray method makes it possible to read an environment variable as a string array.
+A fallback value can be defined as the second argument.
 ```typescript
 import { readArray, write } from 'envix';
 
@@ -53,9 +59,15 @@ write('foo', 'bar,baz');
 
 readArray('foo'); // string[] | undefined
 // ['bar', 'baz']
+
+readArray('bar', ['foo']); // string[]
+// ['foo']
 ```
 
 ### Read Bool
+The readBool method makes it possible to read an environment variable as a boolean.
+A fallback value can be defined as the second argument.
+
 ```typescript
 import { readBool, write } from 'envix';
 
@@ -63,9 +75,15 @@ write('foo', 'true');
 
 readBool('foo'); // boolean | undefined
 // true
+
+readBool('bar', false); // boolean
+// false
 ```
 
 ### Read Int
+The readBool method makes it possible to read an environment variable as a boolean.
+A fallback value can be defined as the second argument.
+
 ```typescript
 import { readInt, write } from 'envix';
 
@@ -73,9 +91,15 @@ write('foo', '1.0');
 
 readInt('foo'); // number | undefined
 // 1
+
+readInt('bar', 2); // number
+// 2
 ```
 
 ### Read Number
+The readBool method makes it possible to read an environment variable as a number.
+A fallback value can be defined as the second argument.
+
 ```typescript
 import { readNumber, write } from 'envix';
 
@@ -83,9 +107,15 @@ write('foo', '1.0');
 
 readNumber('foo'); // number | undefined
 // 1.0
+
+readNumber('bar', 2.0); // number
+// 2.0
 ```
 
 ### Read Number Array
+The readNumberArray method makes it possible to read an environment variable as a number array.
+A fallback value can be defined as the second argument.
+
 ```typescript
 import { readNumberArray, write } from 'envix';
 
@@ -93,6 +123,9 @@ write('foo', '1.0,2.1');
 
 readNumberArray('foo'); // number[] | undefined
 // [1.0,2.1]
+
+readNumberArray('bar', [2,3]); // number[]
+// [2,3]
 ```
 
 ## Contributing
