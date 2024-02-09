@@ -4,6 +4,7 @@ export * from './or-fail';
 export * from './read';
 export * from './read-array';
 export * from './read-bool';
+export * from './read-int';
 export * from './read-number';
 export * from './read-number-array';
 export * from './write';
