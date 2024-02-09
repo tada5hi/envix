@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/tada5hi/envix/compare/v1.1.0...v1.2.0) (2024-02-09)
+
+
+### Features
+
+* read-int helper implementation ([3ba0dca](https://github.com/tada5hi/envix/commit/3ba0dcab9e587a299a1c027e5a43cee63021db88))
+
 # [1.1.0](https://github.com/tada5hi/envix/compare/v1.0.0...v1.1.0) (2024-02-09)
 
 
