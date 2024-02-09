@@ -12,6 +12,14 @@ This library simplifies reading, transforming, and requiring environment variabl
 **Table of Contents**
 - [Installation](#installation)
 - [Usage](#usage)
+  - [write](#write)
+  - [read](#read)
+  - [readArray](#read-array)
+  - [readBool](#read-bool)
+  - [readFloat](#read-float)
+  - [readInt](#read-int)
+  - [readNumber](#read-number)
+  - [readNumberArray](#read-number-array)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -80,8 +88,24 @@ readBool('bar', false); // boolean
 // false
 ```
 
+### Read Float
+The readFloat method makes it possible to read an environment variable as a float.
+A fallback value can be defined as the second argument.
+
+```typescript
+import { readFloat, write } from 'envix';
+
+write('foo', '1');
+
+readFloat('foo'); // number | undefined
+// 1.0
+
+readFloat('bar', 2.0); // number
+// 2.0
+```
+
 ### Read Int
-The readBool method makes it possible to read an environment variable as a boolean.
+The readInt method makes it possible to read an environment variable as a integer.
 A fallback value can be defined as the second argument.
 
 ```typescript
@@ -97,7 +121,7 @@ readInt('bar', 2); // number
 ```
 
 ### Read Number
-The readBool method makes it possible to read an environment variable as a number.
+The readNumber method makes it possible to read an environment variable as a number.
 A fallback value can be defined as the second argument.
 
 ```typescript

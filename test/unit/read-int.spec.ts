@@ -1,7 +1,7 @@
 import { readInt, write } from '../../src';
 
 describe('src/read-int.ts', () => {
-    it('should read number env', () => {
+    it('should read int env', () => {
         write('foo', '1.0');
 
         let result = readInt('foo');
