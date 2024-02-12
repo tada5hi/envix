@@ -1,9 +1,9 @@
 export function toArray(
     input: any,
     separator : string = ',',
-) : string[] {
+) : string[] | undefined {
     if (typeof input !== 'string') {
-        return [];
+        return undefined;
     }
 
     return input

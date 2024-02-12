@@ -9,5 +9,5 @@ export function readArray(key: string, alt?: string[]): any {
         return alt;
     }
 
-    return toArray(value);
+    return toArray(value) ?? alt;
 }
