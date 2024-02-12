@@ -1,3 +1,15 @@
+# [1.4.0](https://github.com/tada5hi/envix/compare/v1.3.0...v1.4.0) (2024-02-12)
+
+
+### Bug Fixes
+
+* expose utils directory ([cd00f35](https://github.com/tada5hi/envix/commit/cd00f35495919f9e8904b6766ea490cca8914949))
+
+
+### Features
+
+* toArray util & expose utils ([73df8b9](https://github.com/tada5hi/envix/commit/73df8b9c278d5a25edd9dde7f0f74bfc78c8fbbc))
+
 # [1.3.0](https://github.com/tada5hi/envix/compare/v1.2.0...v1.3.0) (2024-02-09)
 
 
