@@ -1,3 +1,15 @@
+# [1.5.0](https://github.com/tada5hi/envix/compare/v1.4.0...v1.5.0) (2024-02-12)
+
+
+### Bug Fixes
+
+* toArray accept arbitrary input ([b1800ee](https://github.com/tada5hi/envix/commit/b1800ee5ef1b5250aafc143fec16547343c82f1d))
+
+
+### Features
+
+* optimized readArray helpers & add test suite ([001ca2d](https://github.com/tada5hi/envix/commit/001ca2d36bf18c01833aa9cddf61867eb34b2752))
+
 # [1.4.0](https://github.com/tada5hi/envix/compare/v1.3.0...v1.4.0) (2024-02-12)
 
 
