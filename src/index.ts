@@ -9,3 +9,4 @@ export * from './read-float';
 export * from './read-number';
 export * from './read-number-array';
 export * from './write';
+export * from './utils';
