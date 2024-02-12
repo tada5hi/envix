@@ -1,5 +1,5 @@
 import { read } from './read';
-import { toNumber } from './utils';
+import { toArray, toNumber } from './utils';
 
 export function readNumberArray(key: string) : number[] | undefined {
     const value = read(key);
@@ -7,8 +7,7 @@ export function readNumberArray(key: string) : number[] | undefined {
         return undefined;
     }
 
-    const nums = value.split(',')
-        .filter(Boolean)
+    const nums = toArray(value)
         .map((el) => toNumber(el));
 
     if (nums.some((el) => typeof el === 'undefined')) {
