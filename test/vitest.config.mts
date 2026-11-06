@@ -3,7 +3,6 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
     test: {
         include: [
-            'test/unit/**/*.{js,jsx,ts,tsx}',
             'test/**/*.{test,spec}.{js,jsx,ts,tsx}',
         ],
         exclude: ['**/node_modules/**', '**/dist/**', 'test/unit/mock-util.ts'],
