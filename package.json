@@ -62,5 +62,8 @@
     },
     "dependencies": {
         "std-env": "^3.7.0"
+    },
+    "overrides": {
+        "browserslist": "4.28.7"
     }
 }
