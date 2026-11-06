@@ -3,7 +3,7 @@
     "include": [
         "commitlint.config.js",
         "release.config.js",
-        "rollup.config.mjs",
+        "tsdown.config.mts",
         "src/**/*.ts",
         "test/**/*.ts",
         "test/**/*.js",

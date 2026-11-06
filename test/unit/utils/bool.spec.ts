@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { toBool } from '../../../src/utils';
 
 describe('src/utils/bool.ts', () => {
