@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { has, write } from '../../src';
 
 describe('src/has.ts', () => {
