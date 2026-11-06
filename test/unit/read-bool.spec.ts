@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { readBool, write } from '../../src';
 
 describe('src/read-bool.ts', () => {

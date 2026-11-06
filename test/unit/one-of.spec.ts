@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import {
     oneOf, read, readNumber, write,
 } from '../../src';
