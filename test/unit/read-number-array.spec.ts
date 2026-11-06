@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { readNumberArray, write } from '../../src';
 
 describe('src/read-number-array.ts', () => {
