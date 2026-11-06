@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import {
     orFail, read, write,
 } from '../../src';

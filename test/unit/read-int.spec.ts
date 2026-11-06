@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { readInt, write } from '../../src';
 
 describe('src/read-int.ts', () => {
