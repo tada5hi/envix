@@ -5,6 +5,8 @@
             "ESNext"
         ],
         "module": "commonjs",
+        "moduleResolution": "node",
+        "verbatimModuleSyntax": false,
         "outDir": "dist",
         "target": "ES2020",
         "experimentalDecorators": true,
