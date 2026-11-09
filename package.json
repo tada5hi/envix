@@ -61,6 +61,6 @@
         "*.ts": "npm run lint:fix"
     },
     "dependencies": {
-        "std-env": "^3.7.0"
+        "std-env": "^4.3.0"
     }
 }
