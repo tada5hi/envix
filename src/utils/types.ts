@@ -33,6 +33,8 @@ export type ArrayParseOptions<T = string> = ListParseOptions & {
     map?: (item: string) => T | undefined,
 };
 
+export type BoolArrayParseOptions = ListParseOptions;
+
 export type NumberArrayParseOptions = ListParseOptions & NumberParseOptions & {
     /**
      * Convert each parsed number, after min and max are checked.

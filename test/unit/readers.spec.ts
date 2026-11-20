@@ -13,6 +13,7 @@ import {
     read,
     readArray,
     readBool,
+    readBoolArray,
     readFloat,
     readInt,
     readNumber,
@@ -24,7 +25,7 @@ function createRecordEnvix(record: Record<string, string | undefined>) {
     return new Envix({ read: (key) => record[key] });
 }
 
-type ReaderName = 'readArray' | 'readBool' | 'readFloat' | 'readInt' | 'readNumber' | 'readNumberArray';
+type ReaderName = 'readArray' | 'readBool' | 'readBoolArray' | 'readFloat' | 'readInt' | 'readNumber' | 'readNumberArray';
 
 const cases : {
     reader: ReaderName, 
@@ -46,6 +47,13 @@ const cases : {
         parsed: true, 
         invalid: 'yes', 
         fallback: false,
+    },
+    {
+        reader: 'readBoolArray',
+        valid: 'true, 0,F',
+        parsed: [true, false, false],
+        invalid: 'true,yes',
+        fallback: [false],
     },
     {
         reader: 'readFloat', 
@@ -145,6 +153,7 @@ describe('reader options', () => {
 
         expect(instance.readArray('L', { separator: ';' })).toEqual(['a', 'b']);
         expect(instance.readNumberArray('N', { separator: ';' })).toEqual([1, 2]);
+        expect(createRecordEnvix({ B: 'true;0' }).readBoolArray('B', { separator: ';' })).toEqual([true, false]);
     });
 
     it('gives readNumberArray a default', () => {
@@ -239,6 +248,9 @@ describe('reader options', () => {
         expectTypeOf(instance.readInt('P', { required: true })).toEqualTypeOf<number>();
         expectTypeOf(instance.readArray('L', { default: [] as string[] })).toEqualTypeOf<string[]>();
         expectTypeOf(instance.readBool('B', { required: true })).toEqualTypeOf<boolean>();
+        expectTypeOf(instance.readBoolArray('B')).toEqualTypeOf<boolean[] | undefined>();
+        expectTypeOf(instance.readBoolArray('B', { required: true })).toEqualTypeOf<boolean[]>();
+        expectTypeOf(instance.readBoolArray('B', { default: null })).toEqualTypeOf<boolean[] | null>();
         expectTypeOf(instance.readArray('L', { map: (item) => item.length })).toEqualTypeOf<number[] | undefined>();
         expectTypeOf(instance.readArray('L', { map: (item) => item.length, required: true })).toEqualTypeOf<number[]>();
         expectTypeOf(instance.readArray('L', { map: (item) => item.length, default: null })).toEqualTypeOf<number[] | null>();
@@ -266,6 +278,7 @@ describe('reader options', () => {
         expectTypeOf(readBool('UNSET_TYPE_KEY', { default: false })).toEqualTypeOf<boolean>();
         expectTypeOf(readArray('UNSET_TYPE_KEY', { default: [] as string[], max: 2 })).toEqualTypeOf<string[]>();
         expectTypeOf(readNumberArray('UNSET_TYPE_KEY', { default: [0] })).toEqualTypeOf<number[]>();
+        expectTypeOf(readBoolArray('UNSET_TYPE_KEY', { default: [false] })).toEqualTypeOf<boolean[]>();
         expectTypeOf(readArray('UNSET_TYPE_KEY', { map: Number, default: [] as number[] })).toEqualTypeOf<number[]>();
         expectTypeOf(readArray('UNSET_TYPE_KEY', { map: (item) => item.length })).toEqualTypeOf<number[] | undefined>();
         expectTypeOf(has('UNSET_TYPE_KEY')).toEqualTypeOf<boolean>();

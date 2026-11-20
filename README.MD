@@ -78,6 +78,7 @@ Every typed reader works the same way: look the key up, parse the string, and us
   - [Read](#read)
   - [Read Array](#read-array)
   - [Read Bool](#read-bool)
+  - [Read Bool Array](#read-bool-array)
   - [Read Float](#read-float)
   - [Read Int](#read-int)
   - [Read Number](#read-number)
@@ -203,6 +204,24 @@ readBool('bar', { default: false }); // boolean
 // false
 ```
 
+### Read Bool Array
+
+`readBoolArray` splits entries like `readArray` and converts each like `readBool`. If any entry is not a boolean, the whole value gives the default.
+
+```typescript
+import { readBoolArray, write } from 'envix';
+
+write('foo', 'true, 0, F');
+
+readBoolArray('foo'); // boolean[] | undefined
+// [true, false, false]
+
+write('foo', 'true, yes');
+
+readBoolArray('foo', { default: [false] }); // boolean[]
+// [false]
+```
+
 ### Read Float
 
 `readFloat` uses `Number.parseFloat`, or plain decimal notation only with `strict`.
@@ -289,9 +308,9 @@ readNumberArray('ports', {
 | `default` | all | `undefined` | Returned when no key is set or the value does not parse. Any type: `readInt('PORT', { default: null })` returns `number \| null` |
 | `required` | all | `false` | Throw instead of returning `undefined`. The return type drops `undefined`. Cannot be combined with `default` |
 | `strict` | `readInt`, `readFloat`, `readNumber`, `readNumberArray` | `false` | The whole trimmed value must be plain decimal notation: `42`, `-7`, `+3` for `readInt` (safe integers only), also `1.5`, `-.5`, `1e3` for the others. Rejects `12px`, `0x10`, `Infinity`, `NaN`, and `12.9` for `readInt` |
-| `separator` | `readArray`, `readNumberArray` | `','` | String to split the value on |
-| `min` | `readArray`, `readNumberArray` | `0` | Minimum number of entries, after trimming and dropping empty ones |
-| `max` | `readArray`, `readNumberArray` | none | Maximum number of entries |
+| `separator` | `readArray`, `readBoolArray`, `readNumberArray` | `','` | String to split the value on |
+| `min` | `readArray`, `readBoolArray`, `readNumberArray` | `0` | Minimum number of entries, after trimming and dropping empty ones |
+| `max` | `readArray`, `readBoolArray`, `readNumberArray` | none | Maximum number of entries |
 | `map` | `readArray`, `readNumberArray` | none | Convert each entry, after `min` and `max` are checked: a string for `readArray`, a parsed number for `readNumberArray`. Return `undefined` to reject the whole value; for `readNumberArray`, `NaN` rejects it too. Errors thrown by `map` are not caught |
 
 A value that breaks `strict`, `min`, `max` or `map` counts as a value that does not parse: it gives the default, or throws with `required`.
@@ -398,6 +417,7 @@ Methods are bound, so they can be destructured. `new Envix()` without options re
 | `read` | `read()`, `read(key, options?)` | Raw string value, or all variables |
 | `readArray` | `readArray(key, options?)` | Separated list of trimmed, non-empty strings |
 | `readBool` | `readBool(key, options?)` | `true`/`t`/`1` or `false`/`f`/`0`, case-insensitive |
+| `readBoolArray` | `readBoolArray(key, options?)` | List of booleans, the default if any entry is not one |
 | `readFloat` | `readFloat(key, options?)` | `Number.parseFloat`, or plain decimal with `strict` |
 | `readInt` | `readInt(key, options?)` | `Number.parseInt(value, 10)`, or a safe integer with `strict` |
 | `readNumber` | `readNumber(key, options?)` | `Number(value)`, or plain decimal with `strict` |
@@ -409,7 +429,7 @@ Methods are bound, so they can be destructured. `new Envix()` without options re
 | `Envix` | `new Envix(source?)` | Readers, `has` and `write` over a custom source |
 | `envix` | | The default instance over the runtime environment |
 | `toInt`, `toFloat`, `toNumber` | `toX(value, { strict? })` | The number parsers behind the readers |
-| `toArray`, `toNumberArray` | `toX(value, { separator?, min?, max?, map?, strict? })` | The list parsers; `strict` applies to `toNumberArray` |
+| `toArray`, `toBoolArray`, `toNumberArray` | `toX(value, { separator?, min?, max?, map?, strict? })` | The list parsers; `map` applies to `toArray` and `toNumberArray`, `strict` to `toNumberArray` |
 | `toBool` | `toBool(value)` | The boolean parser |
 | `EnvixError`, `NotSetError`, `InvalidValueError`, `UnsupportedOperationError` | | See [Errors](#errors) |
 
@@ -418,7 +438,7 @@ Methods are bound, so they can be destructured. `new Envix()` without options re
 ## Notes
 
 - **A value that does not parse gives the default.** `PORT=abc` with `readInt('PORT', { default: 3000 })` returns `3000`, the same as an unset `PORT`. Use `has('PORT')` or `required` if you need to tell the two apart.
-- **An empty value is still set.** `read('KEY')` returns `''` for `KEY=`, not the default, and `readArray` and `readNumberArray` return `[]` (unless `min` is above 0). The number readers and `readBool` treat it as a value that does not parse. In a key list, an empty value still wins over later keys.
+- **An empty value is still set.** `read('KEY')` returns `''` for `KEY=`, not the default, and `readArray`, `readBoolArray` and `readNumberArray` return `[]` (unless `min` is above 0). The number readers and `readBool` treat it as a value that does not parse. In a key list, an empty value still wins over later keys.
 - **`readInt` and `readFloat` stop at the first character that does not belong to a number.** `12px` is `12` and `0x10` is `0`. Use `strict` or `readNumber` to reject such values.
 - **`write` changes the runtime source.** With `process.env`, every later read in the same process sees the value, including reads by other libraries.
 - **Only string values count as set.** This holds for every source, so inherited members such as `toString` and non-string bindings (for example a Cloudflare KV namespace in a custom source) read as unset.

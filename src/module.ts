@@ -10,6 +10,7 @@ import type {
 import {
     toArray,
     toBool,
+    toBoolArray,
     toFloat,
     toInt,
     toNumber,
@@ -17,7 +18,12 @@ import {
 } from './utils';
 import { assertOptions } from './utils/options';
 import { createRuntimeSource } from './utils/source';
-import type { ArrayParseOptions, NumberArrayParseOptions, NumberParseOptions } from './utils';
+import type {
+    ArrayParseOptions,
+    BoolArrayParseOptions,
+    NumberArrayParseOptions,
+    NumberParseOptions,
+} from './utils';
 
 export class Envix {
     protected source: EnvixOptions;
@@ -33,6 +39,7 @@ export class Envix {
         this.read = this.read.bind(this);
         this.readArray = this.readArray.bind(this);
         this.readBool = this.readBool.bind(this);
+        this.readBoolArray = this.readBoolArray.bind(this);
         this.readFloat = this.readFloat.bind(this);
         this.readInt = this.readInt.bind(this);
         this.readNumber = this.readNumber.bind(this);
@@ -99,6 +106,18 @@ export class Envix {
 
     readBool(key: EnvixKey, options?: ReadOptions) : unknown {
         return this.resolve(key, (raw) => toBool(raw), options);
+    }
+
+    readBoolArray(key: EnvixKey, options?: OptionalReadOptions<BoolArrayParseOptions>) : boolean[] | undefined;
+
+    readBoolArray<D>(key: EnvixKey, options: DefaultReadOptions<D, BoolArrayParseOptions>) : boolean[] | D;
+
+    readBoolArray(key: EnvixKey, options: RequiredReadOptions<BoolArrayParseOptions>) : boolean[];
+
+    readBoolArray<D>(key: EnvixKey, options?: ReadOptions<D> & BoolArrayParseOptions) : boolean[] | D | undefined;
+
+    readBoolArray(key: EnvixKey, options?: ReadOptions & BoolArrayParseOptions) : unknown {
+        return this.resolve(key, (raw) => toBoolArray(raw, options), options);
     }
 
     readFloat(key: EnvixKey, options?: OptionalReadOptions<NumberParseOptions>) : number | undefined;
