@@ -1,0 +1,93 @@
+<svg width="960" height="344" viewBox="0 0 960 344" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="ef-title ef-desc">
+    <title id="ef-title">How readInt('PORT', 3000) resolves</title>
+    <desc id="ef-desc">readInt('PORT', 3000) looks up PORT in process.env. When PORT is set, its string is parsed with toInt: a number such as 8080 is returned, and a value that does not parse, such as "abc", falls back to 3000. When PORT is not set, the fallback 3000 is returned without parsing. Without a fallback the result is undefined, and orFail(readInt('PORT')) throws instead.</desc>
+
+    <style>
+        :root {
+            --fg: #17211A; --muted: #5A6A5F; --panel: #F4F8F5; --panel-edge: #D3DFD6; --card: #FFFFFF; --rail: #8A9A8F;
+            --env: #16A34A; --env-bg: #ECFDF3; --num: #2563EB; --num-bg: #EFF4FF; --alt: #D97706; --alt-bg: #FFF7EB; --fail: #E11D48;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --fg: #E4EDE6; --muted: #93A598; --panel: #111A14; --panel-edge: #2A3A30; --card: #0B110D; --rail: #5F7066;
+                --env: #4ADE80; --env-bg: #0F2A1A; --num: #7FA8FF; --num-bg: #13203A; --alt: #FBBF24; --alt-bg: #2B2110; --fail: #FB7185;
+            }
+        }
+        text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: var(--fg); }
+        .code { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace; }
+        .label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; fill: var(--muted); }
+        .muted { fill: var(--muted); }
+        .panel { fill: var(--panel); stroke: var(--panel-edge); }
+        .card { fill: var(--card); stroke: var(--panel-edge); }
+        .rail { stroke: var(--rail); stroke-width: 2; fill: none; }
+        .c-env { fill: var(--env-bg); stroke: var(--env); stroke-width: 1.5; }
+        .c-num { fill: var(--num-bg); stroke: var(--num); stroke-width: 1.5; }
+        .c-alt { fill: var(--alt-bg); stroke: var(--alt); stroke-width: 1.5; }
+        .t-env { fill: var(--env); font-weight: 600; }
+        .t-num { fill: var(--num); font-weight: 600; }
+        .t-alt { fill: var(--alt); font-weight: 600; }
+        .t-fail { fill: var(--fail); font-weight: 600; }
+        .dot { fill: var(--num); }
+        .head { fill: var(--rail); }
+    </style>
+
+    <defs>
+        <marker id="ef-head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path class="head" d="M0 0 L10 5 L0 10 Z"/>
+        </marker>
+    </defs>
+
+    <!-- 1. call -->
+    <rect class="panel" x="16" y="16" width="216" height="248" rx="18"/>
+    <text class="label" x="36" y="44">CALL</text>
+    <rect class="card" x="32" y="100" width="184" height="60" rx="10"/>
+    <text class="code" x="44" y="126" font-size="13">readInt('PORT',</text>
+    <text class="code" x="44" y="146" font-size="13"><tspan class="t-alt">3000</tspan>)</text>
+    <text class="muted" x="36" y="200" font-size="12.5">returns number</text>
+    <text class="muted" x="36" y="218" font-size="12.5">because a fallback</text>
+    <text class="muted" x="36" y="236" font-size="12.5">is given</text>
+
+    <!-- 2. look up -->
+    <rect class="panel" x="256" y="16" width="208" height="248" rx="18"/>
+    <text class="label" x="276" y="44">LOOK UP</text>
+    <rect class="c-env" x="272" y="100" width="176" height="60" rx="10"/>
+    <text class="code t-env" x="286" y="126" font-size="13">process.env.PORT</text>
+    <text class="code muted" x="286" y="146" font-size="12.5">set: "8080"</text>
+    <text class="muted" x="372" y="204" font-size="12.5">not set</text>
+
+    <!-- 3. parse -->
+    <rect class="panel" x="488" y="16" width="208" height="248" rx="18"/>
+    <text class="label" x="508" y="44">PARSE</text>
+    <rect class="card" x="504" y="100" width="176" height="60" rx="10"/>
+    <text class="code" x="518" y="126" font-size="13">toInt("8080")</text>
+    <text class="code muted" x="518" y="146" font-size="12.5">toInt("abc") → NaN</text>
+
+    <!-- 4. result -->
+    <rect class="panel" x="720" y="16" width="224" height="248" rx="18"/>
+    <text class="label" x="740" y="44">RESULT</text>
+    <rect class="c-num" x="736" y="64" width="192" height="56" rx="10"/>
+    <text class="code t-num" x="752" y="92" font-size="18">8080</text>
+    <text class="muted" x="752" y="110" font-size="12">the parsed number</text>
+    <rect class="c-alt" x="736" y="160" width="192" height="56" rx="10"/>
+    <text class="code t-alt" x="752" y="188" font-size="18">3000</text>
+    <text class="muted" x="752" y="206" font-size="12">the fallback</text>
+
+    <!-- arrows -->
+    <path class="rail" d="M216 130 H268" marker-end="url(#ef-head)"/>
+    <path class="rail" d="M448 130 H500" marker-end="url(#ef-head)"/>
+    <path class="rail" d="M680 118 H702 V92 H732" marker-end="url(#ef-head)"/>
+    <path class="rail" d="M680 142 H702 V178 H732" marker-end="url(#ef-head)"/>
+    <path class="rail" d="M360 160 V244 H714 V200 H732" marker-end="url(#ef-head)"/>
+
+    <!-- one value travelling the happy path, one pass -->
+    <g opacity="0">
+        <circle class="dot" r="8" fill-opacity="0.25"/>
+        <circle class="dot" r="4"/>
+        <animateMotion dur="3s" repeatCount="1" fill="freeze" path="M216 130 H448 M448 130 H680 H702 V92 H736"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="3s" repeatCount="1" fill="freeze"/>
+    </g>
+
+    <!-- footer: no fallback -->
+    <rect class="panel" x="16" y="280" width="928" height="48" rx="14" stroke-dasharray="5 5"/>
+    <text x="36" y="309" font-size="13"><tspan class="muted">No fallback: </tspan><tspan class="code">readInt('PORT')</tspan><tspan class="muted"> returns </tspan><tspan class="code">number | undefined</tspan><tspan class="muted">, and </tspan><tspan class="code">orFail(readInt('PORT'))</tspan><tspan class="muted"> throws </tspan><tspan class="t-fail">Error</tspan><tspan class="muted"> instead of returning undefined.</tspan></text>
+</svg>

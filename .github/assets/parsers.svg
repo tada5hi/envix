@@ -1,0 +1,149 @@
+<svg width="960" height="484" viewBox="0 0 960 484" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="ep-title ep-desc">
+    <title id="ep-title">What each envix reader returns for the same value</title>
+    <desc id="ep-desc">The same environment value read with each envix reader. &quot;8080&quot; is 8080 for every number reader. &quot;1.9&quot; is 1 for readInt and 1.9 for readFloat and readNumber. &quot;12px&quot; is 12 for readInt and readFloat but undefined for readNumber. &quot;0x10&quot; is 0 for readInt and readFloat and 16 for readNumber. &quot;0&quot; is 0 for the number readers and false for readBool. &quot; TRUE &quot; is true for readBool. &quot;a, b ,,c&quot; is [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;] for readArray. An empty string is 0 for readNumber and [] for readArray. A reader that returns undefined returns your fallback instead, when you pass one.</desc>
+
+    <style>
+        :root {
+            --fg: #17211A; --muted: #5A6A5F; --panel: #F4F8F5; --panel-edge: #D3DFD6; --card: #FFFFFF;
+            --num: #2563EB; --num-bg: #EFF4FF; --bool: #15803D; --bool-bg: #ECFDF3; --arr: #A21CAF; --arr-bg: #FDF0FF;
+            --odd: #D97706;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --fg: #E4EDE6; --muted: #93A598; --panel: #111A14; --panel-edge: #2A3A30; --card: #0B110D;
+                --num: #7FA8FF; --num-bg: #13203A; --bool: #4ADE80; --bool-bg: #0F2A1A; --arr: #F0A6FF; --arr-bg: #2A1430;
+                --odd: #FBBF24;
+            }
+        }
+        text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: var(--fg); }
+        .code { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace; }
+        .label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; fill: var(--muted); }
+        .head { font-weight: 600; }
+        .muted { fill: var(--muted); }
+        .panel { fill: var(--panel); stroke: var(--panel-edge); }
+        .chip { fill: var(--card); stroke: var(--panel-edge); }
+        .cell { stroke-width: 1.5; }
+        .cell.num { fill: var(--num-bg); stroke: var(--num); stroke-opacity: 0.45; }
+        .cell.bool { fill: var(--bool-bg); stroke: var(--bool); stroke-opacity: 0.45; }
+        .cell.arr { fill: var(--arr-bg); stroke: var(--arr); stroke-opacity: 0.45; }
+        .cell.none { fill: var(--card); stroke: var(--panel-edge); stroke-dasharray: 4 4; }
+        .cell.odd { stroke: var(--odd); stroke-opacity: 1; stroke-width: 2; }
+        .v-num { fill: var(--num); font-weight: 600; }
+        .v-bool { fill: var(--bool); font-weight: 600; }
+        .v-arr { fill: var(--arr); font-weight: 600; }
+        .v-none { fill: var(--muted); }
+    </style>
+
+    <rect class="panel" x="16" y="16" width="928" height="452" rx="18"/>
+    <text class="label" x="36" y="48">ENVIRONMENT VALUE</text>
+    <text class="label" x="200" y="48">WHAT EACH READER RETURNS</text>
+    <text class="code head muted" x="50" y="76" font-size="13">process.env.VALUE</text>
+    <text class="code head" x="270" y="76" font-size="13" text-anchor="middle">readInt</text>
+    <text class="code head" x="418" y="76" font-size="13" text-anchor="middle">readFloat</text>
+    <text class="code head" x="566" y="76" font-size="13" text-anchor="middle">readNumber</text>
+    <text class="code head" x="714" y="76" font-size="13" text-anchor="middle">readBool</text>
+    <text class="code head" x="862" y="76" font-size="13" text-anchor="middle">readArray</text>
+
+    <rect class="chip" x="36" y="96" width="148" height="30" rx="8"/>
+    <text class="code" x="50" y="116" font-size="13" xml:space="preserve">&quot;8080&quot;</text>
+    <rect class="cell num" x="200" y="96" width="140" height="30" rx="8"/>
+    <text class="code v-num" x="270" y="116" font-size="13" text-anchor="middle">8080</text>
+    <rect class="cell num" x="348" y="96" width="140" height="30" rx="8"/>
+    <text class="code v-num" x="418" y="116" font-size="13" text-anchor="middle">8080</text>
+    <rect class="cell num" x="496" y="96" width="140" height="30" rx="8"/>
+    <text class="code v-num" x="566" y="116" font-size="13" text-anchor="middle">8080</text>
+    <rect class="cell none" x="644" y="96" width="140" height="30" rx="8"/>
+    <text class="code v-none" x="714" y="116" font-size="13" text-anchor="middle">undefined</text>
+    <rect class="cell arr" x="792" y="96" width="140" height="30" rx="8"/>
+    <text class="code v-arr" x="862" y="116" font-size="13" text-anchor="middle">[&quot;8080&quot;]</text>
+    <rect class="chip" x="36" y="136" width="148" height="30" rx="8"/>
+    <text class="code" x="50" y="156" font-size="13" xml:space="preserve">&quot;1.9&quot;</text>
+    <rect class="cell num odd" x="200" y="136" width="140" height="30" rx="8"/>
+    <text class="code v-num" x="270" y="156" font-size="13" text-anchor="middle">1</text>
+    <rect class="cell num" x="348" y="136" width="140" height="30" rx="8"/>
+    <text class="code v-num" x="418" y="156" font-size="13" text-anchor="middle">1.9</text>
+    <rect class="cell num" x="496" y="136" width="140" height="30" rx="8"/>
+    <text class="code v-num" x="566" y="156" font-size="13" text-anchor="middle">1.9</text>
+    <rect class="cell none" x="644" y="136" width="140" height="30" rx="8"/>
+    <text class="code v-none" x="714" y="156" font-size="13" text-anchor="middle">undefined</text>
+    <rect class="cell arr" x="792" y="136" width="140" height="30" rx="8"/>
+    <text class="code v-arr" x="862" y="156" font-size="13" text-anchor="middle">[&quot;1.9&quot;]</text>
+    <rect class="chip" x="36" y="176" width="148" height="30" rx="8"/>
+    <text class="code" x="50" y="196" font-size="13" xml:space="preserve">&quot;12px&quot;</text>
+    <rect class="cell num odd" x="200" y="176" width="140" height="30" rx="8"/>
+    <text class="code v-num" x="270" y="196" font-size="13" text-anchor="middle">12</text>
+    <rect class="cell num odd" x="348" y="176" width="140" height="30" rx="8"/>
+    <text class="code v-num" x="418" y="196" font-size="13" text-anchor="middle">12</text>
+    <rect class="cell none" x="496" y="176" width="140" height="30" rx="8"/>
+    <text class="code v-none" x="566" y="196" font-size="13" text-anchor="middle">undefined</text>
+    <rect class="cell none" x="644" y="176" width="140" height="30" rx="8"/>
+    <text class="code v-none" x="714" y="196" font-size="13" text-anchor="middle">undefined</text>
+    <rect class="cell arr" x="792" y="176" width="140" height="30" rx="8"/>
+    <text class="code v-arr" x="862" y="196" font-size="13" text-anchor="middle">[&quot;12px&quot;]</text>
+    <rect class="chip" x="36" y="216" width="148" height="30" rx="8"/>
+    <text class="code" x="50" y="236" font-size="13" xml:space="preserve">&quot;0x10&quot;</text>
+    <rect class="cell num odd" x="200" y="216" width="140" height="30" rx="8"/>
+    <text class="code v-num" x="270" y="236" font-size="13" text-anchor="middle">0</text>
+    <rect class="cell num odd" x="348" y="216" width="140" height="30" rx="8"/>
+    <text class="code v-num" x="418" y="236" font-size="13" text-anchor="middle">0</text>
+    <rect class="cell num" x="496" y="216" width="140" height="30" rx="8"/>
+    <text class="code v-num" x="566" y="236" font-size="13" text-anchor="middle">16</text>
+    <rect class="cell none" x="644" y="216" width="140" height="30" rx="8"/>
+    <text class="code v-none" x="714" y="236" font-size="13" text-anchor="middle">undefined</text>
+    <rect class="cell arr" x="792" y="216" width="140" height="30" rx="8"/>
+    <text class="code v-arr" x="862" y="236" font-size="13" text-anchor="middle">[&quot;0x10&quot;]</text>
+    <rect class="chip" x="36" y="256" width="148" height="30" rx="8"/>
+    <text class="code" x="50" y="276" font-size="13" xml:space="preserve">&quot;0&quot;</text>
+    <rect class="cell num" x="200" y="256" width="140" height="30" rx="8"/>
+    <text class="code v-num" x="270" y="276" font-size="13" text-anchor="middle">0</text>
+    <rect class="cell num" x="348" y="256" width="140" height="30" rx="8"/>
+    <text class="code v-num" x="418" y="276" font-size="13" text-anchor="middle">0</text>
+    <rect class="cell num" x="496" y="256" width="140" height="30" rx="8"/>
+    <text class="code v-num" x="566" y="276" font-size="13" text-anchor="middle">0</text>
+    <rect class="cell bool" x="644" y="256" width="140" height="30" rx="8"/>
+    <text class="code v-bool" x="714" y="276" font-size="13" text-anchor="middle">false</text>
+    <rect class="cell arr" x="792" y="256" width="140" height="30" rx="8"/>
+    <text class="code v-arr" x="862" y="276" font-size="13" text-anchor="middle">[&quot;0&quot;]</text>
+    <rect class="chip" x="36" y="296" width="148" height="30" rx="8"/>
+    <text class="code" x="50" y="316" font-size="13" xml:space="preserve">&quot; TRUE &quot;</text>
+    <rect class="cell none" x="200" y="296" width="140" height="30" rx="8"/>
+    <text class="code v-none" x="270" y="316" font-size="13" text-anchor="middle">undefined</text>
+    <rect class="cell none" x="348" y="296" width="140" height="30" rx="8"/>
+    <text class="code v-none" x="418" y="316" font-size="13" text-anchor="middle">undefined</text>
+    <rect class="cell none" x="496" y="296" width="140" height="30" rx="8"/>
+    <text class="code v-none" x="566" y="316" font-size="13" text-anchor="middle">undefined</text>
+    <rect class="cell bool" x="644" y="296" width="140" height="30" rx="8"/>
+    <text class="code v-bool" x="714" y="316" font-size="13" text-anchor="middle">true</text>
+    <rect class="cell arr" x="792" y="296" width="140" height="30" rx="8"/>
+    <text class="code v-arr" x="862" y="316" font-size="13" text-anchor="middle">[&quot;TRUE&quot;]</text>
+    <rect class="chip" x="36" y="336" width="148" height="30" rx="8"/>
+    <text class="code" x="50" y="356" font-size="13" xml:space="preserve">&quot;a, b ,,c&quot;</text>
+    <rect class="cell none" x="200" y="336" width="140" height="30" rx="8"/>
+    <text class="code v-none" x="270" y="356" font-size="13" text-anchor="middle">undefined</text>
+    <rect class="cell none" x="348" y="336" width="140" height="30" rx="8"/>
+    <text class="code v-none" x="418" y="356" font-size="13" text-anchor="middle">undefined</text>
+    <rect class="cell none" x="496" y="336" width="140" height="30" rx="8"/>
+    <text class="code v-none" x="566" y="356" font-size="13" text-anchor="middle">undefined</text>
+    <rect class="cell none" x="644" y="336" width="140" height="30" rx="8"/>
+    <text class="code v-none" x="714" y="356" font-size="13" text-anchor="middle">undefined</text>
+    <rect class="cell arr" x="792" y="336" width="140" height="30" rx="8"/>
+    <text class="code v-arr" x="862" y="356" font-size="13" text-anchor="middle">[&quot;a&quot;,&quot;b&quot;,&quot;c&quot;]</text>
+    <rect class="chip" x="36" y="376" width="148" height="30" rx="8"/>
+    <text class="code" x="50" y="396" font-size="13" xml:space="preserve">&quot;&quot;</text>
+    <rect class="cell none" x="200" y="376" width="140" height="30" rx="8"/>
+    <text class="code v-none" x="270" y="396" font-size="13" text-anchor="middle">undefined</text>
+    <rect class="cell none" x="348" y="376" width="140" height="30" rx="8"/>
+    <text class="code v-none" x="418" y="396" font-size="13" text-anchor="middle">undefined</text>
+    <rect class="cell num odd" x="496" y="376" width="140" height="30" rx="8"/>
+    <text class="code v-num" x="566" y="396" font-size="13" text-anchor="middle">0</text>
+    <rect class="cell none" x="644" y="376" width="140" height="30" rx="8"/>
+    <text class="code v-none" x="714" y="396" font-size="13" text-anchor="middle">undefined</text>
+    <rect class="cell arr" x="792" y="376" width="140" height="30" rx="8"/>
+    <text class="code v-arr" x="862" y="396" font-size="13" text-anchor="middle">[]</text>
+
+    <!-- legend -->
+    <rect class="cell odd" x="36" y="438" width="22" height="16" rx="5" fill="none"/>
+    <text class="muted" x="66" y="450" font-size="13">parsed, but often not what you meant</text>
+    <rect class="cell none" x="330" y="438" width="22" height="16" rx="5"/>
+    <text class="muted" x="360" y="450" font-size="13">undefined: you get your fallback instead, when you pass one</text>
+</svg>
