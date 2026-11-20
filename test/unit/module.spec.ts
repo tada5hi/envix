@@ -114,5 +114,11 @@ describe('options guard', () => {
         expect(() => loose.readArray('X', ['a'])).toThrow(TypeError);
         expect(() => loose.readBool('X', null)).toThrow(TypeError);
         expect(instance.readInt('X', undefined)).toBeUndefined();
+
+        const listing = new Envix({ read: () => undefined, keys: () => [] });
+        const looseListing = listing as unknown as { read: (key?: string, options?: unknown) => unknown };
+
+        expect(() => looseListing.read(undefined, null)).toThrow(TypeError);
+        expect(listing.read()).toEqual({});
     });
 });

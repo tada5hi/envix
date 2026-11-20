@@ -46,6 +46,14 @@ describe('src/utils/source.ts', () => {
 
         source.write('B', '2');
         expect((globalThis as Record<string, any>).__env__.B).toBe('2');
+
+        source.write('__proto__', 'literal');
+        expect(source.read('__proto__')).toBe('literal');
+        expect(source.keys()).toContain('__proto__');
+        expect(Object.getPrototypeOf((globalThis as Record<string, any>).__env__)).toBe(Object.prototype);
+
+        source.write('__proto__', undefined);
+        expect(source.read('__proto__')).toBeUndefined();
     });
 
     it('uses an in-memory record without process or __env__', () => {

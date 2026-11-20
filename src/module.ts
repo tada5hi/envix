@@ -54,6 +54,8 @@ export class Envix {
     read<D>(key: EnvixKey, options?: ReadOptions<D>) : string | D | undefined;
 
     read(key?: EnvixKey, options?: ReadOptions) : unknown {
+        assertOptions(options);
+
         if (typeof key === 'undefined') {
             if (!this.source.keys) {
                 throw new UnsupportedOperationError('The environment source does not support listing keys.');

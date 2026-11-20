@@ -48,7 +48,13 @@ export function createRuntimeSource() : Required<EnvixOptions> {
             if (typeof value === 'undefined') {
                 delete record[key];
             } else {
-                record[key] = value;
+                // define an own property, so keys like __proto__ do not hit inherited setters
+                Object.defineProperty(record, key, {
+                    value,
+                    enumerable: true,
+                    writable: true,
+                    configurable: true,
+                });
             }
         },
         keys: () => {
