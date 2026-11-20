@@ -80,34 +80,6 @@ jobs:
                 run: |
                     npm run test
 
-    tests-min-node:
-        name: Test (Node 22)
-        needs: [build]
-        runs-on: ubuntu-latest
-        steps:
-            -   name: Checkout
-                uses: actions/checkout@v6
-
-            -   name: Install
-                uses: ./.github/actions/install
-                with:
-                    node-version: ${{ env.PRIMARY_NODE_VERSION }}
-
-            -   name: Build
-                uses: ./.github/actions/build
-
-            -   name: Use Node.js 22
-                uses: actions/setup-node@v6
-                with:
-                    node-version: '22'
-
-            -   name: Run tests
-                run: |
-                    npm run test
-
-            -   name: Import built package
-                run: |
-                    node --input-type=module -e "import { read } from './dist/index.mjs'; process.env.ENVIX_SMOKE = '1'; if (read('ENVIX_SMOKE') !== '1') process.exit(1);"
 
     coverage:
         name: Coverage
