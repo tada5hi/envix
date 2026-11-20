@@ -5,7 +5,8 @@ import type { NumberArrayParseOptions } from './types';
 
 /**
  * Parse a separated list of numbers. A single element that does not parse,
- * or that map turns into undefined, makes the whole list undefined.
+ * or that map turns into undefined, NaN or a non-number, makes the whole
+ * list undefined.
  */
 export function toNumberArray(
     value: unknown,
@@ -27,7 +28,13 @@ export function toNumberArray(
                 return num;
             }
 
-            return map(num);
+            const mapped = map(num);
+
+            if (typeof mapped !== 'number' || Number.isNaN(mapped)) {
+                return undefined;
+            }
+
+            return mapped;
         },
     });
 }

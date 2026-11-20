@@ -68,6 +68,13 @@ describe('array parser map option', () => {
         expect(toNumberArray('1,0x10', { strict: true, map: toInteger })).toBeUndefined();
     });
 
+    it('rejects a toNumberArray map result that is NaN or not a number', () => {
+        expect(toNumberArray('1,2', { map: (item) => Number.parseInt(String(item), 10) })).toEqual([1, 2]);
+        expect(toNumberArray('1,2', { map: (item) => (item === 2 ? NaN : item) })).toBeUndefined();
+        expect(toNumberArray('1,2', { map: (item) => Number.parseInt(`x${item}`, 10) })).toBeUndefined();
+        expect(toNumberArray('1,2', { map: (item) => String(item) as never })).toBeUndefined();
+    });
+
     it('does not call map when an entry is not a number', () => {
         const calls : number[] = [];
 

@@ -36,7 +36,8 @@ export type ArrayParseOptions<T = string> = ListParseOptions & {
 export type NumberArrayParseOptions = ListParseOptions & NumberParseOptions & {
     /**
      * Convert each parsed number, after min and max are checked.
-     * Return undefined to mark the whole value as invalid.
+     * Return undefined to mark the whole value as invalid; a NaN result,
+     * e.g. from Number.parseInt, is invalid as well.
      */
     map?: (item: number) => number | undefined,
 };

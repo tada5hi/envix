@@ -269,7 +269,7 @@ readNumberArray('foo', { default: [2, 3] }); // number[]
 // [2, 3]
 ```
 
-`map` gets each parsed number and must return a number, or `undefined` to reject the whole value. For example, to accept integers only:
+`map` gets each parsed number and must return a number, or `undefined` to reject the whole value. A result that is `NaN` or not a number, such as `Number.parseInt` failing, also rejects the whole value. For example, to accept integers only:
 
 ```typescript
 write('ports', '80, 443');
@@ -292,7 +292,7 @@ readNumberArray('ports', {
 | `separator` | `readArray`, `readNumberArray` | `','` | String to split the value on |
 | `min` | `readArray`, `readNumberArray` | `0` | Minimum number of entries, after trimming and dropping empty ones |
 | `max` | `readArray`, `readNumberArray` | none | Maximum number of entries |
-| `map` | `readArray`, `readNumberArray` | none | Convert each entry, after `min` and `max` are checked: a string for `readArray`, a parsed number for `readNumberArray`. Return `undefined` to reject the whole value. Errors thrown by `map` are not caught |
+| `map` | `readArray`, `readNumberArray` | none | Convert each entry, after `min` and `max` are checked: a string for `readArray`, a parsed number for `readNumberArray`. Return `undefined` to reject the whole value; for `readNumberArray`, `NaN` rejects it too. Errors thrown by `map` are not caught |
 
 A value that breaks `strict`, `min`, `max` or `map` counts as a value that does not parse: it gives the default, or throws with `required`.
 
