@@ -73,3 +73,11 @@ describe('src/utils/float.ts', () => {
         expect(toFloat(input, { strict: true })).toEqual(expected);
     });
 });
+
+describe('number parser options guard', () => {
+    it('rejects non-object options', () => {
+        expect(() => toInt('1', 10 as never)).toThrow(TypeError);
+        expect(() => toFloat('1', true as never)).toThrow(TypeError);
+        expect(() => toNumber('1', 'x' as never)).toThrow(TypeError);
+    });
+});

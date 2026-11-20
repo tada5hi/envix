@@ -1,9 +1,12 @@
+import { assertOptions } from './options';
 import type { ArrayParseOptions } from './types';
 
 export function toArray(
     value: unknown,
     options: ArrayParseOptions = {},
 ) : string[] | undefined {
+    assertOptions(options);
+
     if (typeof value !== 'string') {
         return undefined;
     }

@@ -1,5 +1,6 @@
 import { hasInstanceof, markInstanceof } from '@ebec/core';
-import { EnvixError, buildErrorOptions } from './base';
+import { EnvixError } from './base';
+import { buildErrorOptions } from './utils';
 import type { EnvixErrorInput } from './types';
 
 export const ENVIX_INVALID_VALUE_ERROR_MARKER = Symbol.for('@envix/invalid-value-error');

@@ -32,3 +32,10 @@ describe('src/utils/number-array.ts', () => {
         expect(toNumberArray(input, options)).toEqual(expected);
     });
 });
+
+describe('array parser options guard', () => {
+    it('rejects a positional separator from the previous API', () => {
+        expect(() => toArray('a;b', ';' as never)).toThrow(TypeError);
+        expect(() => toNumberArray('1;2', ';' as never)).toThrow(TypeError);
+    });
+});

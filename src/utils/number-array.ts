@@ -1,5 +1,6 @@
 import { toArray } from './array';
 import { toNumber } from './number';
+import { assertOptions } from './options';
 import type { NumberArrayParseOptions } from './types';
 
 /**
@@ -10,6 +11,8 @@ export function toNumberArray(
     value: unknown,
     options: NumberArrayParseOptions = {},
 ) : number[] | undefined {
+    assertOptions(options);
+
     const items = toArray(value, options);
 
     if (!items) {

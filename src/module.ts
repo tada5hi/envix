@@ -15,6 +15,7 @@ import {
     toNumber,
     toNumberArray,
 } from './utils';
+import { assertOptions } from './utils/options';
 import { createRuntimeSource } from './utils/source';
 import type { ArrayParseOptions, NumberArrayParseOptions, NumberParseOptions } from './utils';
 
@@ -58,9 +59,17 @@ export class Envix {
                 throw new UnsupportedOperationError('The environment source does not support listing keys.');
             }
 
-            const keys = this.source.keys();
+            const entries : [string, string][] = [];
 
-            return Object.fromEntries(keys.map((name) => [name, this.source.read(name)]));
+            for (const name of this.source.keys()) {
+                const value = this.lookup(name);
+
+                if (typeof value !== 'undefined') {
+                    entries.push([name, value]);
+                }
+            }
+
+            return Object.fromEntries(entries);
         }
 
         return this.resolve(key, (raw) => raw, options);
@@ -139,7 +148,7 @@ export class Envix {
     }
 
     has(key: string) : boolean {
-        return typeof this.source.read(key) !== 'undefined';
+        return typeof this.lookup(key) !== 'undefined';
     }
 
     write(key: string, value: string | undefined) : void {
@@ -156,6 +165,17 @@ export class Envix {
     // ---------------------------------------------------------------
 
     /**
+     * Read a key from the source. Only string values count as set, so
+     * inherited members (toString) and bindings (KV objects) of plain
+     * records are never returned.
+     */
+    protected lookup(key: string) : string | undefined {
+        const value : unknown = this.source.read(key);
+
+        return typeof value === 'string' ? value : undefined;
+    }
+
+    /**
      * Look up the first set key, parse its value and apply default or required.
      * A set value that does not parse never falls through to later keys.
      */
@@ -164,10 +184,12 @@ export class Envix {
         parse: (raw: string) => T | undefined,
         options: ReadOptions = {},
     ) : unknown {
+        assertOptions(options);
+
         const keys = Array.isArray(key) ? key : [key];
 
         for (const name of keys) {
-            const raw = this.source.read(name);
+            const raw = this.lookup(name);
 
             if (typeof raw === 'undefined') {
                 continue;
