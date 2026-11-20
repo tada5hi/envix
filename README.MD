@@ -7,7 +7,7 @@
 [![Conventional Commits][conventional-src]][conventional-href]
 
 
-This library simplifies reading, transforming, and requiring environment variables across runtimes like Node.js, Deno, Bun.js, Browser, and more.
+This ESM-only library simplifies reading, transforming, and requiring environment variables across runtimes that expose `globalThis.process.env`, like Node.js, Deno, Bun.js, and more.
 
 **Table of Contents**
 - [Installation](#installation)

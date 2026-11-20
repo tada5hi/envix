@@ -4,4 +4,4 @@
 
 Keep parsing, fallback and failure behavior consistent across the supported environment sources. Avoid adding Node-only dependencies to shared readers.
 
-Run the build when changing exported types or bundle configuration. Validate both CommonJS and ESM consumer entrypoints when altering package exports. A missing external service is an incomplete check, not a passing test.
+Run the build when changing exported types or bundle configuration. The package is ESM-only; validate the ESM consumer entrypoint when altering package exports. A missing external service is an incomplete check, not a passing test.

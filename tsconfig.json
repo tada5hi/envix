@@ -4,7 +4,8 @@
         "lib": [
             "ESNext"
         ],
-        "module": "commonjs",
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
         "outDir": "dist",
         "target": "ES2020",
         "experimentalDecorators": true,
