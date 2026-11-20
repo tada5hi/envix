@@ -98,7 +98,7 @@ Every typed reader works the same way: look the key up, parse the string, and us
 npm install envix --save
 ```
 
-envix is published as an ES module and requires Node.js 24 or newer. Its only dependency is [@ebec/core](https://www.npmjs.com/package/@ebec/core), which its error classes build on.
+envix is published as an ES module and requires Node.js 22 or newer. Its only dependency is [@ebec/core](https://www.npmjs.com/package/@ebec/core), which its error classes build on.
 
 The free functions read the runtime environment. On every call envix uses the first source that exists: `globalThis.process.env` (Node.js, Deno, Bun), then `globalThis.__env__` (for example Nitro and some Cloudflare setups), then an in-memory record (browsers and other runtimes). Sources are never merged. To read anything else, such as `import.meta.env`, create an [`Envix` instance](#custom-sources).
 
