@@ -1,11 +1,17 @@
 export function toBool(value: any) : boolean | undefined {
-    switch (value) {
-        case true:
+    if (typeof value === 'boolean') {
+        return value;
+    }
+
+    if (typeof value !== 'string') {
+        return undefined;
+    }
+
+    switch (value.trim().toLowerCase()) {
         case 'true':
         case 't':
         case '1':
             return true;
-        case false:
         case 'false':
         case 'f':
         case '0':
