@@ -1,35 +1,33 @@
 import { toArray } from './array';
 import { toNumber } from './number';
-import { assertOptions } from './options';
+import { assertMapOption, assertOptions } from './options';
 import type { NumberArrayParseOptions } from './types';
 
 /**
- * Parse a separated list of numbers. A single element that does not parse
- * makes the whole list undefined.
+ * Parse a separated list of numbers. A single element that does not parse,
+ * or that map turns into undefined, makes the whole list undefined.
  */
 export function toNumberArray(
     value: unknown,
     options: NumberArrayParseOptions = {},
 ) : number[] | undefined {
     assertOptions(options);
+    assertMapOption(options.map);
 
-    const items = toArray(value, options);
+    const { map, ...rest } = options;
 
-    if (!items) {
-        return undefined;
-    }
+    return toArray(value, {
+        separator: rest.separator,
+        min: rest.min,
+        max: rest.max,
+        map: (item) => {
+            const num = toNumber(item, rest);
 
-    const output : number[] = [];
+            if (typeof num === 'undefined' || !map) {
+                return num;
+            }
 
-    for (const item of items) {
-        const num = toNumber(item, options);
-
-        if (typeof num === 'undefined') {
-            return undefined;
-        }
-
-        output.push(num);
-    }
-
-    return output;
+            return map(num);
+        },
+    });
 }

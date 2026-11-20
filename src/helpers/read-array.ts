@@ -8,14 +8,14 @@ import type {
 } from '../types';
 import type { ArrayParseOptions } from '../utils';
 
-export function readArray(key: EnvixKey, options?: OptionalReadOptions<ArrayParseOptions>) : string[] | undefined;
+export function readArray<T = string>(key: EnvixKey, options?: OptionalReadOptions<ArrayParseOptions<T>>) : T[] | undefined;
 
-export function readArray<D>(key: EnvixKey, options: DefaultReadOptions<D, ArrayParseOptions>) : string[] | D;
+export function readArray<D, T = string>(key: EnvixKey, options: DefaultReadOptions<D, ArrayParseOptions<T>>) : T[] | D;
 
-export function readArray(key: EnvixKey, options: RequiredReadOptions<ArrayParseOptions>) : string[];
+export function readArray<T = string>(key: EnvixKey, options: RequiredReadOptions<ArrayParseOptions<T>>) : T[];
 
-export function readArray<D>(key: EnvixKey, options?: ReadOptions<D> & ArrayParseOptions) : string[] | D | undefined;
+export function readArray<D, T = string>(key: EnvixKey, options?: ReadOptions<D> & ArrayParseOptions<T>) : T[] | D | undefined;
 
-export function readArray<D>(key: EnvixKey, options?: ReadOptions<D> & ArrayParseOptions) : string[] | D | undefined {
+export function readArray<D, T = string>(key: EnvixKey, options?: ReadOptions<D> & ArrayParseOptions<T>) : T[] | D | undefined {
     return envix.readArray(key, options);
 }

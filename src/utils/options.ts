@@ -16,3 +16,12 @@ export function assertOptions(options: unknown) : void {
         throw new TypeError('The options argument must be an object, e.g. { default: value }.');
     }
 }
+
+/**
+ * Reject a map option that is not a function.
+ */
+export function assertMapOption(map: unknown) : void {
+    if (typeof map !== 'undefined' && typeof map !== 'function') {
+        throw new TypeError('The map option must be a function.');
+    }
+}

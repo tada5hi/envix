@@ -1,11 +1,16 @@
-import { assertOptions } from './options';
+import { assertMapOption, assertOptions } from './options';
 import type { ArrayParseOptions } from './types';
 
-export function toArray(
+/**
+ * Parse a separated list. With map, a single entry that maps to undefined
+ * makes the whole list undefined.
+ */
+export function toArray<T = string>(
     value: unknown,
-    options: ArrayParseOptions = {},
-) : string[] | undefined {
+    options: ArrayParseOptions<T> = {},
+) : T[] | undefined {
     assertOptions(options);
+    assertMapOption(options.map);
 
     if (typeof value !== 'string') {
         return undefined;
@@ -24,5 +29,21 @@ export function toArray(
         return undefined;
     }
 
-    return items;
+    if (!options.map) {
+        return items as T[];
+    }
+
+    const output : T[] = [];
+
+    for (const item of items) {
+        const mapped = options.map(item);
+
+        if (typeof mapped === 'undefined') {
+            return undefined;
+        }
+
+        output.push(mapped);
+    }
+
+    return output;
 }

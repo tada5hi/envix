@@ -175,6 +175,18 @@ readArray('path', { separator: ':', max: 1, default: [] });
 // [], since the value has two entries
 ```
 
+`map` converts each entry. The return type follows what `map` returns. If `map` returns `undefined` for any entry, the whole value does not parse, so you get the default, or an `InvalidValueError` with `required`.
+
+```typescript
+write('mode', 'read, write');
+
+readArray('mode', {
+    map: (item) => (item === 'read' || item === 'write' ? item : undefined),
+    required: true,
+}); // ('read' | 'write')[]
+// ['read', 'write']
+```
+
 ### Read Bool
 
 `readBool` reads `true`, `t` and `1` as `true`, and `false`, `f` and `0` as `false`. Surrounding whitespace and letter case are ignored. Any other value, such as `yes`, gives the default.
@@ -257,6 +269,19 @@ readNumberArray('foo', { default: [2, 3] }); // number[]
 // [2, 3]
 ```
 
+`map` gets each parsed number and must return a number, or `undefined` to reject the whole value. For example, to accept integers only:
+
+```typescript
+write('ports', '80, 443');
+
+readNumberArray('ports', {
+    strict: true,
+    map: (item) => (Number.isSafeInteger(item) ? item : undefined),
+    required: true,
+}); // number[]
+// [80, 443]; '80, 4.5' throws an InvalidValueError
+```
+
 ## Reader options
 
 | Option | Readers | Default | Effect |
@@ -267,8 +292,9 @@ readNumberArray('foo', { default: [2, 3] }); // number[]
 | `separator` | `readArray`, `readNumberArray` | `','` | String to split the value on |
 | `min` | `readArray`, `readNumberArray` | `0` | Minimum number of entries, after trimming and dropping empty ones |
 | `max` | `readArray`, `readNumberArray` | none | Maximum number of entries |
+| `map` | `readArray`, `readNumberArray` | none | Convert each entry, after `min` and `max` are checked: a string for `readArray`, a parsed number for `readNumberArray`. Return `undefined` to reject the whole value. Errors thrown by `map` are not caught |
 
-A value that breaks `strict`, `min` or `max` counts as a value that does not parse: it gives the default, or throws with `required`.
+A value that breaks `strict`, `min`, `max` or `map` counts as a value that does not parse: it gives the default, or throws with `required`.
 
 ```typescript
 import { readInt } from 'envix';
@@ -383,7 +409,7 @@ Methods are bound, so they can be destructured. `new Envix()` without options re
 | `Envix` | `new Envix(source?)` | Readers, `has` and `write` over a custom source |
 | `envix` | | The default instance over the runtime environment |
 | `toInt`, `toFloat`, `toNumber` | `toX(value, { strict? })` | The number parsers behind the readers |
-| `toArray`, `toNumberArray` | `toX(value, { separator?, min?, max?, strict? })` | The list parsers; `strict` applies to `toNumberArray` |
+| `toArray`, `toNumberArray` | `toX(value, { separator?, min?, max?, map?, strict? })` | The list parsers; `strict` applies to `toNumberArray` |
 | `toBool` | `toBool(value)` | The boolean parser |
 | `EnvixError`, `NotSetError`, `InvalidValueError`, `UnsupportedOperationError` | | See [Errors](#errors) |
 

@@ -151,6 +151,25 @@ describe('reader options', () => {
         expect(createRecordEnvix({ N: '1,foo' }).readNumberArray('N', { default: [0] })).toEqual([0]);
     });
 
+    it('maps array entries and treats an unmapped entry as invalid', () => {
+        const instance = createRecordEnvix({ P: '80,443', X: '80,4.5' });
+        const toInteger = (item: number) => (Number.isSafeInteger(item) ? item : undefined);
+
+        expect(instance.readArray('P', { map: (item) => Number(item) })).toEqual([80, 443]);
+        expect(instance.readNumberArray('P', { map: toInteger })).toEqual([80, 443]);
+        expect(instance.readNumberArray('X', { map: toInteger })).toBeUndefined();
+        expect(instance.readNumberArray('X', { map: toInteger, default: [1] })).toEqual([1]);
+        expect(instance.readArray('X', { map: (item) => (item.includes('.') ? undefined : item), default: [] })).toEqual([]);
+
+        try {
+            instance.readNumberArray('X', { map: toInteger, required: true });
+            expect.unreachable();
+        } catch (e) {
+            expect(e).toBeInstanceOf(InvalidValueError);
+            expect((e as InvalidValueError).keys).toEqual(['X']);
+        }
+    });
+
     it('applies strict parsing on request only', () => {
         const instance = createRecordEnvix({ P: '12px', H: '0x10' });
 
@@ -220,6 +239,17 @@ describe('reader options', () => {
         expectTypeOf(instance.readInt('P', { required: true })).toEqualTypeOf<number>();
         expectTypeOf(instance.readArray('L', { default: [] as string[] })).toEqualTypeOf<string[]>();
         expectTypeOf(instance.readBool('B', { required: true })).toEqualTypeOf<boolean>();
+        expectTypeOf(instance.readArray('L', { map: (item) => item.length })).toEqualTypeOf<number[] | undefined>();
+        expectTypeOf(instance.readArray('L', { map: (item) => item.length, required: true })).toEqualTypeOf<number[]>();
+        expectTypeOf(instance.readArray('L', { map: (item) => item.length, default: null })).toEqualTypeOf<number[] | null>();
+        expectTypeOf(instance.readArray('L', {
+            map: (item) => (item === 'a' || item === 'b' ? item : undefined),
+            required: true,
+        })).toEqualTypeOf<('a' | 'b')[]>();
+        expectTypeOf(instance.readNumberArray('P', { map: (item) => item, required: true })).toEqualTypeOf<number[]>();
+
+        // @ts-expect-error readNumberArray map must return a number
+        instance.readNumberArray('L', { map: (item: number) => String(item) });
 
         // @ts-expect-error required and default are mutually exclusive
         instance.readInt('P', { required: true, default: 1 });
@@ -236,6 +266,8 @@ describe('reader options', () => {
         expectTypeOf(readBool('UNSET_TYPE_KEY', { default: false })).toEqualTypeOf<boolean>();
         expectTypeOf(readArray('UNSET_TYPE_KEY', { default: [] as string[], max: 2 })).toEqualTypeOf<string[]>();
         expectTypeOf(readNumberArray('UNSET_TYPE_KEY', { default: [0] })).toEqualTypeOf<number[]>();
+        expectTypeOf(readArray('UNSET_TYPE_KEY', { map: Number, default: [] as number[] })).toEqualTypeOf<number[]>();
+        expectTypeOf(readArray('UNSET_TYPE_KEY', { map: (item) => item.length })).toEqualTypeOf<number[] | undefined>();
         expectTypeOf(has('UNSET_TYPE_KEY')).toEqualTypeOf<boolean>();
         expectTypeOf(write).parameters.toEqualTypeOf<[string, string | undefined]>();
 

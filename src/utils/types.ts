@@ -8,7 +8,7 @@ export type NumberParseOptions = {
     strict?: boolean,
 };
 
-export type ArrayParseOptions = {
+type ListParseOptions = {
     /**
      * default: ','
      */
@@ -25,4 +25,18 @@ export type ArrayParseOptions = {
     max?: number,
 };
 
-export type NumberArrayParseOptions = ArrayParseOptions & NumberParseOptions;
+export type ArrayParseOptions<T = string> = ListParseOptions & {
+    /**
+     * Convert each entry, after min and max are checked.
+     * Return undefined to mark the whole value as invalid.
+     */
+    map?: (item: string) => T | undefined,
+};
+
+export type NumberArrayParseOptions = ListParseOptions & NumberParseOptions & {
+    /**
+     * Convert each parsed number, after min and max are checked.
+     * Return undefined to mark the whole value as invalid.
+     */
+    map?: (item: number) => number | undefined,
+};

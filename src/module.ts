@@ -77,15 +77,15 @@ export class Envix {
         return this.resolve(key, (raw) => raw, options);
     }
 
-    readArray(key: EnvixKey, options?: OptionalReadOptions<ArrayParseOptions>) : string[] | undefined;
+    readArray<T = string>(key: EnvixKey, options?: OptionalReadOptions<ArrayParseOptions<T>>) : T[] | undefined;
 
-    readArray<D>(key: EnvixKey, options: DefaultReadOptions<D, ArrayParseOptions>) : string[] | D;
+    readArray<D, T = string>(key: EnvixKey, options: DefaultReadOptions<D, ArrayParseOptions<T>>) : T[] | D;
 
-    readArray(key: EnvixKey, options: RequiredReadOptions<ArrayParseOptions>) : string[];
+    readArray<T = string>(key: EnvixKey, options: RequiredReadOptions<ArrayParseOptions<T>>) : T[];
 
-    readArray<D>(key: EnvixKey, options?: ReadOptions<D> & ArrayParseOptions) : string[] | D | undefined;
+    readArray<D, T = string>(key: EnvixKey, options?: ReadOptions<D> & ArrayParseOptions<T>) : T[] | D | undefined;
 
-    readArray(key: EnvixKey, options?: ReadOptions & ArrayParseOptions) : unknown {
+    readArray(key: EnvixKey, options?: ReadOptions & ArrayParseOptions<unknown>) : unknown {
         return this.resolve(key, (raw) => toArray(raw, options), options);
     }
 
