@@ -29,9 +29,12 @@ describe('src/one-of.ts', () => {
     it('uses indexed order when an array has a custom iterator', () => {
         const values = [1, 2];
 
-        values[Symbol.iterator] = function* () {
-            yield 2; yield 1; 
-        };
+        Object.defineProperty(values, Symbol.iterator, {
+            *value () {
+                yield 2;
+                yield 1;
+            },
+        });
         expect(oneOf(values)).toBe(1);
     });
 });
