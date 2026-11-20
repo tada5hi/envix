@@ -61,7 +61,6 @@
         "*.ts": "npm run lint:fix"
     },
     "dependencies": {
-        "@ebec/core": "^1.3.2",
-        "std-env": "^4.3.0"
+        "@ebec/core": "^1.3.2"
     }
 }

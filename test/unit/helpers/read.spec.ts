@@ -11,8 +11,24 @@ describe('src/read.ts', () => {
 
         write('foo', undefined);
 
-        result = read('foo', 'baz');
+        result = read('foo', { default: 'baz' });
         expect(result).toEqual('baz');
+    });
+
+    it('sees keys after process.env is replaced', () => {
+        const original = process.env;
+
+        try {
+            process.env = { ...original, REPLACED_ONLY: 'new' };
+
+            expect(read('REPLACED_ONLY')).toBe('new');
+            expect(Object.keys(read())).toContain('REPLACED_ONLY');
+
+            write('WRITTEN_AFTER_REPLACE', '1');
+            expect(process.env.WRITTEN_AFTER_REPLACE).toBe('1');
+        } finally {
+            process.env = original;
+        }
     });
 
     it('should read all env', () => {

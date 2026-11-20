@@ -1,23 +1,4 @@
-import { env } from 'std-env';
+import { envix } from '../instance';
+import type { Envix } from '../module';
 
-export function read() : Record<string, string | undefined>;
-export function read(key: string) : string | undefined;
-export function read<T>(key: string, alt: T) : T | string;
-export function read<T>(key?: string, alt?: T): any {
-    if (typeof key === 'undefined') {
-        const keys = Reflect.ownKeys(env) as string[];
-
-        return Object.fromEntries(keys.map((envKey) => [envKey, env[envKey]]));
-    }
-
-    if (Reflect.has(env, key)) {
-        return env[key];
-    }
-
-    /* istanbul ignore next */
-    if (Reflect.has(globalThis.process?.env, key)) {
-        return globalThis.process?.env[key];
-    }
-
-    return alt;
-}
+export const read : Envix['read'] = envix.read.bind(envix);

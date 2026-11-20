@@ -1,5 +1,4 @@
-import { env } from 'std-env';
+import { envix } from '../instance';
+import type { Envix } from '../module';
 
-export function has(key: string) : boolean {
-    return Reflect.has(env, key);
-}
+export const has : Envix['has'] = envix.has.bind(envix);
