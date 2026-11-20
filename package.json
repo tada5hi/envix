@@ -1,6 +1,6 @@
 {
     "name": "envix",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "Read environment variables as numbers, booleans and lists, with typed fallbacks.",
     "author": {
         "name": "Peter Placzek",

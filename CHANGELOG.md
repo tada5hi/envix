@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/tada5hi/envix/compare/v2.0.0...v2.0.1) (2026-11-20)
+
+
+### Bug Fixes
+
+* support node 22 and newer ([a816407](https://github.com/tada5hi/envix/commit/a816407f5cf3aee71f5e5fe6518dcdf100bbf0fd))
+
 ## [2.0.0](https://github.com/tada5hi/envix/compare/v1.5.0...v2.0.0) (2026-11-20)
 
 
