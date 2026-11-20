@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { readBool, write } from '../../src';
+import { readBool, write } from '../../../src';
 
 describe('src/read-bool.ts', () => {
     it('should read bool env', () => {
@@ -20,7 +20,7 @@ describe('src/read-bool.ts', () => {
         expect(readBool('foo')).toBe(true);
 
         write('foo', 'False');
-        expect(readBool('foo', true)).toBe(false);
+        expect(readBool('foo', { default: true })).toBe(false);
 
         write('foo', undefined);
     });

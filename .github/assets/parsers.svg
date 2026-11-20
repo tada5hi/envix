@@ -1,6 +1,6 @@
 <svg width="960" height="484" viewBox="0 0 960 484" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="ep-title ep-desc">
     <title id="ep-title">What each envix reader returns for the same value</title>
-    <desc id="ep-desc">The same environment value read with each envix reader. &quot;8080&quot; is 8080 for every number reader. &quot;1.9&quot; is 1 for readInt and 1.9 for readFloat and readNumber. &quot;12px&quot; is 12 for readInt and readFloat but undefined for readNumber. &quot;0x10&quot; is 0 for readInt and readFloat and 16 for readNumber. &quot;0&quot; is 0 for the number readers and false for readBool. &quot; TRUE &quot; is true for readBool. &quot;a, b ,,c&quot; is [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;] for readArray. An empty string is 0 for readNumber and [] for readArray. A reader that returns undefined returns your fallback instead, when you pass one.</desc>
+    <desc id="ep-desc">The same environment value read with each envix reader. &quot;8080&quot; is 8080 for every number reader. &quot;1.9&quot; is 1 for readInt and 1.9 for readFloat and readNumber. &quot;12px&quot; is 12 for readInt and readFloat but undefined for readNumber. &quot;0x10&quot; is 0 for readInt and readFloat and 16 for readNumber. &quot;0&quot; is 0 for the number readers and false for readBool. &quot; TRUE &quot; is true for readBool. &quot;a, b ,,c&quot; is [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;] for readArray. An empty string is undefined for every number reader and readBool, and [] for readArray. A reader that returns undefined returns your default instead, when you pass one, or throws with required.</desc>
 
     <style>
         :root {
@@ -134,8 +134,8 @@
     <text class="code v-none" x="270" y="396" font-size="13" text-anchor="middle">undefined</text>
     <rect class="cell none" x="348" y="376" width="140" height="30" rx="8"/>
     <text class="code v-none" x="418" y="396" font-size="13" text-anchor="middle">undefined</text>
-    <rect class="cell num odd" x="496" y="376" width="140" height="30" rx="8"/>
-    <text class="code v-num" x="566" y="396" font-size="13" text-anchor="middle">0</text>
+    <rect class="cell none" x="496" y="376" width="140" height="30" rx="8"/>
+    <text class="code v-none" x="566" y="396" font-size="13" text-anchor="middle">undefined</text>
     <rect class="cell none" x="644" y="376" width="140" height="30" rx="8"/>
     <text class="code v-none" x="714" y="396" font-size="13" text-anchor="middle">undefined</text>
     <rect class="cell arr" x="792" y="376" width="140" height="30" rx="8"/>
@@ -145,5 +145,5 @@
     <rect class="cell odd" x="36" y="438" width="22" height="16" rx="5" fill="none"/>
     <text class="muted" x="66" y="450" font-size="13">parsed, but often not what you meant</text>
     <rect class="cell none" x="330" y="438" width="22" height="16" rx="5"/>
-    <text class="muted" x="360" y="450" font-size="13">undefined: you get your fallback instead, when you pass one</text>
+    <text class="muted" x="360" y="450" font-size="13">undefined: you get your default instead, when you pass one</text>
 </svg>

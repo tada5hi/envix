@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { readNumber, write } from '../../src';
+import { readNumber, write } from '../../../src';
 
 describe('src/read-number.ts', () => {
     it('should read number env', () => {
         write('foo', '1');
 
         let result = readNumber('foo');
+
         expect(result).toEqual(1);
 
         write('foo', '1.0');

@@ -1,13 +1,28 @@
+import { assertOptions } from './options';
+import type { ArrayParseOptions } from './types';
+
 export function toArray(
-    input: any,
-    separator : string = ',',
+    value: unknown,
+    options: ArrayParseOptions = {},
 ) : string[] | undefined {
-    if (typeof input !== 'string') {
+    assertOptions(options);
+
+    if (typeof value !== 'string') {
         return undefined;
     }
 
-    return input
-        .split(separator)
+    const items = value
+        .split(options.separator ?? ',')
         .map((el) => el.trim())
         .filter(Boolean);
+
+    if (items.length < (options.min ?? 0)) {
+        return undefined;
+    }
+
+    if (typeof options.max === 'number' && items.length > options.max) {
+        return undefined;
+    }
+
+    return items;
 }

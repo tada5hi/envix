@@ -1,6 +1,6 @@
 <svg width="960" height="344" viewBox="0 0 960 344" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="ef-title ef-desc">
-    <title id="ef-title">How readInt('PORT', 3000) resolves</title>
-    <desc id="ef-desc">readInt('PORT', 3000) looks up PORT in process.env. When PORT is set, its string is parsed with toInt: a number such as 8080 is returned, and a value that does not parse, such as "abc", falls back to 3000. When PORT is not set, the fallback 3000 is returned without parsing. Without a fallback the result is undefined, and orFail(readInt('PORT')) throws instead.</desc>
+    <title id="ef-title">How readInt('PORT', { default: 3000 }) resolves</title>
+    <desc id="ef-desc">readInt('PORT', { default: 3000 }) looks up PORT in the environment source. When PORT is set, its string is parsed with toInt: a number such as 8080 is returned, and a value that does not parse, such as "abc", gives the default 3000. When PORT is not set, the default 3000 is returned without parsing. Without a default the result is undefined, and with { required: true } the reader throws NotSetError or InvalidValueError instead.</desc>
 
     <style>
         :root {
@@ -42,9 +42,9 @@
     <text class="label" x="36" y="44">CALL</text>
     <rect class="card" x="32" y="100" width="184" height="60" rx="10"/>
     <text class="code" x="44" y="126" font-size="13">readInt('PORT',</text>
-    <text class="code" x="44" y="146" font-size="13"><tspan class="t-alt">3000</tspan>)</text>
+    <text class="code" x="44" y="146" font-size="13">{ default: <tspan class="t-alt">3000</tspan> })</text>
     <text class="muted" x="36" y="200" font-size="12.5">returns number</text>
-    <text class="muted" x="36" y="218" font-size="12.5">because a fallback</text>
+    <text class="muted" x="36" y="218" font-size="12.5">because a default</text>
     <text class="muted" x="36" y="236" font-size="12.5">is given</text>
 
     <!-- 2. look up -->
@@ -60,7 +60,7 @@
     <text class="label" x="508" y="44">PARSE</text>
     <rect class="card" x="504" y="100" width="176" height="60" rx="10"/>
     <text class="code" x="518" y="126" font-size="13">toInt("8080")</text>
-    <text class="code muted" x="518" y="146" font-size="12.5">toInt("abc") → NaN</text>
+    <text class="code muted" x="518" y="146" font-size="12.5">"abc" → undefined</text>
 
     <!-- 4. result -->
     <rect class="panel" x="720" y="16" width="224" height="248" rx="18"/>
@@ -70,7 +70,7 @@
     <text class="muted" x="752" y="110" font-size="12">the parsed number</text>
     <rect class="c-alt" x="736" y="160" width="192" height="56" rx="10"/>
     <text class="code t-alt" x="752" y="188" font-size="18">3000</text>
-    <text class="muted" x="752" y="206" font-size="12">the fallback</text>
+    <text class="muted" x="752" y="206" font-size="12">the default</text>
 
     <!-- arrows -->
     <path class="rail" d="M216 130 H268" marker-end="url(#ef-head)"/>
@@ -87,7 +87,7 @@
         <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="3s" repeatCount="1" fill="freeze"/>
     </g>
 
-    <!-- footer: no fallback -->
+    <!-- footer: no default -->
     <rect class="panel" x="16" y="280" width="928" height="48" rx="14" stroke-dasharray="5 5"/>
-    <text x="36" y="309" font-size="13"><tspan class="muted">No fallback: </tspan><tspan class="code">readInt('PORT')</tspan><tspan class="muted"> returns </tspan><tspan class="code">number | undefined</tspan><tspan class="muted">, and </tspan><tspan class="code">orFail(readInt('PORT'))</tspan><tspan class="muted"> throws </tspan><tspan class="t-fail">Error</tspan><tspan class="muted"> instead of returning undefined.</tspan></text>
+    <text x="36" y="309" font-size="13"><tspan class="muted">No default: </tspan><tspan class="code">readInt('PORT')</tspan><tspan class="muted"> returns </tspan><tspan class="code">number | undefined</tspan><tspan class="muted">. Add </tspan><tspan class="code">{ required: true }</tspan><tspan class="muted"> to throw </tspan><tspan class="t-fail">NotSetError</tspan><tspan class="muted"> or </tspan><tspan class="t-fail">InvalidValueError</tspan><tspan class="muted">.</tspan></text>
 </svg>
