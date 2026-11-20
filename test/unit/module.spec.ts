@@ -120,5 +120,9 @@ describe('options guard', () => {
 
         expect(() => looseListing.read(undefined, null)).toThrow(TypeError);
         expect(listing.read()).toEqual({});
+
+        const looseRead = read as unknown as (key?: string, options?: unknown) => unknown;
+
+        expect(() => looseRead(undefined, null)).toThrow(TypeError);
     });
 });

@@ -6,7 +6,7 @@
 | `src/instance.ts` | Default `envix` instance over the runtime source |
 | `src/types.ts` | Key, source and reader option types |
 | `src/errors/` | `EnvixError` and its `NotSetError`, `InvalidValueError` and `UnsupportedOperationError` subclasses; internal `utils.ts` is not exported |
-| `src/helpers/` | Public free functions bound to the default instance, plus `orFail` and `oneOf` |
+| `src/helpers/` | Public free functions that delegate to the default instance, plus `orFail` and `oneOf` |
 | `src/utils/` | Public parsers (`toInt`, `toFloat`, `toNumber`, `toArray`, `toNumberArray`, `toBool`); internal `source.ts`, `strict.ts` and `options.ts` are not exported |
 | `src/index.ts` | Public package exports |
 | `tsdown.config.mts` | JavaScript build configuration |

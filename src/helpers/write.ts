@@ -1,4 +1,5 @@
 import { envix } from '../instance';
-import type { Envix } from '../module';
 
-export const write : Envix['write'] = envix.write.bind(envix);
+export function write(key: string, value: string | undefined) : void {
+    envix.write(key, value);
+}

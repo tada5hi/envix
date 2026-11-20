@@ -9,7 +9,15 @@ import {
     InvalidValueError,
     NotSetError,
     envix,
+    has,
+    read,
+    readArray,
+    readBool,
+    readFloat,
     readInt,
+    readNumber,
+    readNumberArray,
+    write,
 } from '../../src';
 
 function createRecordEnvix(record: Record<string, string | undefined>) {
@@ -215,5 +223,24 @@ describe('reader options', () => {
 
         // @ts-expect-error required and default are mutually exclusive
         instance.readInt('P', { required: true, default: 1 });
+    });
+
+    it('narrows return types of the free functions', () => {
+        expectTypeOf(read()).toEqualTypeOf<Record<string, string | undefined>>();
+        expectTypeOf(read('UNSET_TYPE_KEY')).toEqualTypeOf<string | undefined>();
+        expectTypeOf(read('UNSET_TYPE_KEY', { default: 'x' })).toEqualTypeOf<string>();
+        expectTypeOf(readInt('UNSET_TYPE_KEY')).toEqualTypeOf<number | undefined>();
+        expectTypeOf(readInt('UNSET_TYPE_KEY', { default: 3000 })).toEqualTypeOf<number>();
+        expectTypeOf(readFloat('UNSET_TYPE_KEY', { default: 1.5, strict: true })).toEqualTypeOf<number>();
+        expectTypeOf(readNumber('UNSET_TYPE_KEY', { default: null })).toEqualTypeOf<number | null>();
+        expectTypeOf(readBool('UNSET_TYPE_KEY', { default: false })).toEqualTypeOf<boolean>();
+        expectTypeOf(readArray('UNSET_TYPE_KEY', { default: [] as string[], max: 2 })).toEqualTypeOf<string[]>();
+        expectTypeOf(readNumberArray('UNSET_TYPE_KEY', { default: [0] })).toEqualTypeOf<number[]>();
+        expectTypeOf(has('UNSET_TYPE_KEY')).toEqualTypeOf<boolean>();
+        expectTypeOf(write).parameters.toEqualTypeOf<[string, string | undefined]>();
+
+        // required wins at runtime when the type error is bypassed
+        // @ts-expect-error required and default are mutually exclusive
+        expect(() => readInt('UNSET_TYPE_KEY', { required: true, default: 1 })).toThrow(NotSetError);
     });
 });

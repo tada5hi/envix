@@ -334,7 +334,7 @@ try {
 
 ## Custom sources
 
-The free functions are bound methods of the default instance `envix`. Create your own `Envix` instance to read from another source, such as `import.meta.env`, a secrets map or a test record. A source needs `read`; `write` and `keys` are optional, and calling `write()` or `read()` without a key on a source that lacks them throws an `UnsupportedOperationError`.
+The free functions delegate to the default instance `envix`. Create your own `Envix` instance to read from another source, such as `import.meta.env`, a secrets map or a test record. A source needs `read`; `write` and `keys` are optional, and calling `write()` or `read()` without a key on a source that lacks them throws an `UnsupportedOperationError`.
 
 ```typescript
 import { Envix } from 'envix';
