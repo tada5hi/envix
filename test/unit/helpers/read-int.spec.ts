@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { readInt, write } from '../../src';
+import { readInt, write } from '../../../src';
 
 describe('src/read-int.ts', () => {
     it('should read int env', () => {
         write('foo', '1.0');
 
         let result = readInt('foo');
+
         expect(result).toEqual(1);
 
         write('foo', 'foo');

@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { has, write } from '../../src';
+import { has, write } from '../../../src';
 
 describe('src/has.ts', () => {
     it('should check env', () => {
         write('foo', 'bar');
 
         let result = has('foo');
+
         expect(result).toBeTruthy();
 
         result = has('bar');

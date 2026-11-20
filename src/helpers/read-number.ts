@@ -1,5 +1,5 @@
 import { read } from './read';
-import { toNumber } from './utils';
+import { toNumber } from '../utils';
 
 export function readNumber(key: string) : number | undefined;
 export function readNumber<T>(key: string, alt: T) : T | number;

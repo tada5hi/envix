@@ -1,5 +1,5 @@
 import { readArray } from './read-array';
-import { toNumber } from './utils';
+import { toNumber } from '../utils';
 
 export function readNumberArray(key: string) : number[] | undefined {
     const value = readArray(key);
