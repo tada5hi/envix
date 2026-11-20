@@ -24,11 +24,17 @@ export type EnvixOptions = {
     keys?: () => string[],
 };
 
+/**
+ * default and required are mutually exclusive.
+ */
 export type ReadOptions<D = unknown> = {
     /**
      * Returned when no key is set or the value does not parse.
      */
     default?: D,
+    required?: false,
+} | {
+    default?: undefined,
     /**
      * Throw a NotSetError or InvalidValueError instead of returning undefined.
      */

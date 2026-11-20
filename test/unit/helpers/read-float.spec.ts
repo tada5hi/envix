@@ -16,7 +16,7 @@ describe('src/read-float.ts', () => {
 
         write('foo', undefined);
 
-        result = readFloat('foo', 2.0);
+        result = readFloat('foo', { default: 2.0 });
         expect(result).toEqual(2.0);
 
         result = readFloat('foo');

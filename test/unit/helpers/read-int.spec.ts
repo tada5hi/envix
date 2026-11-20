@@ -16,7 +16,7 @@ describe('src/read-int.ts', () => {
 
         write('foo', undefined);
 
-        result = readInt('foo', 2);
+        result = readInt('foo', { default: 2 });
         expect(result).toEqual(2);
 
         result = readInt('foo');

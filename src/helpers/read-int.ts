@@ -1,14 +1,4 @@
-import { read } from './read';
-import { toInt } from '../utils';
+import { envix } from '../instance';
+import type { Envix } from '../module';
 
-export function readInt(key: string) : number | undefined;
-export function readInt<T>(key: string, alt: T) : T | number;
-export function readInt<T>(key: string, alt?: T) : any {
-    const value = read(key) as any;
-
-    if (typeof value !== 'undefined') {
-        return toInt(value) ?? alt;
-    }
-
-    return alt;
-}
+export const readInt : Envix['readInt'] = envix.readInt.bind(envix);

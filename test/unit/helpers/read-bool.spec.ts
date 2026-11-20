@@ -20,7 +20,7 @@ describe('src/read-bool.ts', () => {
         expect(readBool('foo')).toBe(true);
 
         write('foo', 'False');
-        expect(readBool('foo', true)).toBe(false);
+        expect(readBool('foo', { default: true })).toBe(false);
 
         write('foo', undefined);
     });

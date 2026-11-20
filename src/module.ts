@@ -7,7 +7,16 @@ import type {
     ReadOptions,
     RequiredReadOptions,
 } from './types';
+import {
+    toArray,
+    toBool,
+    toFloat,
+    toInt,
+    toNumber,
+    toNumberArray,
+} from './utils';
 import { createRuntimeSource } from './utils/source';
+import type { ArrayParseOptions, NumberArrayParseOptions, NumberParseOptions } from './utils';
 
 export class Envix {
     protected source: EnvixOptions;
@@ -18,6 +27,17 @@ export class Envix {
      */
     constructor(options?: EnvixOptions) {
         this.source = options ?? createRuntimeSource();
+
+        // bind public methods, so they can be destructured or passed around
+        this.read = this.read.bind(this);
+        this.readArray = this.readArray.bind(this);
+        this.readBool = this.readBool.bind(this);
+        this.readFloat = this.readFloat.bind(this);
+        this.readInt = this.readInt.bind(this);
+        this.readNumber = this.readNumber.bind(this);
+        this.readNumberArray = this.readNumberArray.bind(this);
+        this.has = this.has.bind(this);
+        this.write = this.write.bind(this);
     }
 
     // ---------------------------------------------------------------
@@ -44,6 +64,78 @@ export class Envix {
         }
 
         return this.resolve(key, (raw) => raw, options);
+    }
+
+    readArray(key: EnvixKey, options?: OptionalReadOptions<ArrayParseOptions>) : string[] | undefined;
+
+    readArray<D>(key: EnvixKey, options: DefaultReadOptions<D, ArrayParseOptions>) : string[] | D;
+
+    readArray(key: EnvixKey, options: RequiredReadOptions<ArrayParseOptions>) : string[];
+
+    readArray<D>(key: EnvixKey, options?: ReadOptions<D> & ArrayParseOptions) : string[] | D | undefined;
+
+    readArray(key: EnvixKey, options?: ReadOptions & ArrayParseOptions) : unknown {
+        return this.resolve(key, (raw) => toArray(raw, options), options);
+    }
+
+    readBool(key: EnvixKey, options?: OptionalReadOptions) : boolean | undefined;
+
+    readBool<D>(key: EnvixKey, options: DefaultReadOptions<D>) : boolean | D;
+
+    readBool(key: EnvixKey, options: RequiredReadOptions) : boolean;
+
+    readBool<D>(key: EnvixKey, options?: ReadOptions<D>) : boolean | D | undefined;
+
+    readBool(key: EnvixKey, options?: ReadOptions) : unknown {
+        return this.resolve(key, (raw) => toBool(raw), options);
+    }
+
+    readFloat(key: EnvixKey, options?: OptionalReadOptions<NumberParseOptions>) : number | undefined;
+
+    readFloat<D>(key: EnvixKey, options: DefaultReadOptions<D, NumberParseOptions>) : number | D;
+
+    readFloat(key: EnvixKey, options: RequiredReadOptions<NumberParseOptions>) : number;
+
+    readFloat<D>(key: EnvixKey, options?: ReadOptions<D> & NumberParseOptions) : number | D | undefined;
+
+    readFloat(key: EnvixKey, options?: ReadOptions & NumberParseOptions) : unknown {
+        return this.resolve(key, (raw) => toFloat(raw, options), options);
+    }
+
+    readInt(key: EnvixKey, options?: OptionalReadOptions<NumberParseOptions>) : number | undefined;
+
+    readInt<D>(key: EnvixKey, options: DefaultReadOptions<D, NumberParseOptions>) : number | D;
+
+    readInt(key: EnvixKey, options: RequiredReadOptions<NumberParseOptions>) : number;
+
+    readInt<D>(key: EnvixKey, options?: ReadOptions<D> & NumberParseOptions) : number | D | undefined;
+
+    readInt(key: EnvixKey, options?: ReadOptions & NumberParseOptions) : unknown {
+        return this.resolve(key, (raw) => toInt(raw, options), options);
+    }
+
+    readNumber(key: EnvixKey, options?: OptionalReadOptions<NumberParseOptions>) : number | undefined;
+
+    readNumber<D>(key: EnvixKey, options: DefaultReadOptions<D, NumberParseOptions>) : number | D;
+
+    readNumber(key: EnvixKey, options: RequiredReadOptions<NumberParseOptions>) : number;
+
+    readNumber<D>(key: EnvixKey, options?: ReadOptions<D> & NumberParseOptions) : number | D | undefined;
+
+    readNumber(key: EnvixKey, options?: ReadOptions & NumberParseOptions) : unknown {
+        return this.resolve(key, (raw) => toNumber(raw, options), options);
+    }
+
+    readNumberArray(key: EnvixKey, options?: OptionalReadOptions<NumberArrayParseOptions>) : number[] | undefined;
+
+    readNumberArray<D>(key: EnvixKey, options: DefaultReadOptions<D, NumberArrayParseOptions>) : number[] | D;
+
+    readNumberArray(key: EnvixKey, options: RequiredReadOptions<NumberArrayParseOptions>) : number[];
+
+    readNumberArray<D>(key: EnvixKey, options?: ReadOptions<D> & NumberArrayParseOptions) : number[] | D | undefined;
+
+    readNumberArray(key: EnvixKey, options?: ReadOptions & NumberArrayParseOptions) : unknown {
+        return this.resolve(key, (raw) => toNumberArray(raw, options), options);
     }
 
     has(key: string) : boolean {

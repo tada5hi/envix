@@ -1,14 +1,4 @@
-import { read } from './read';
-import { toBool } from '../utils';
+import { envix } from '../instance';
+import type { Envix } from '../module';
 
-export function readBool(key: string) : boolean | undefined;
-export function readBool<T>(key: string, alt: T) : T | boolean;
-export function readBool<T>(key: string, alt?: T) : any {
-    const value = read(key) as any;
-
-    if (typeof value !== 'undefined') {
-        return toBool(value) ?? alt;
-    }
-
-    return alt;
-}
+export const readBool : Envix['readBool'] = envix.readBool.bind(envix);

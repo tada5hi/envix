@@ -1,14 +1,4 @@
-import { read } from './read';
-import { toFloat } from '../utils';
+import { envix } from '../instance';
+import type { Envix } from '../module';
 
-export function readFloat(key: string) : number | undefined;
-export function readFloat<T>(key: string, alt: T) : T | number;
-export function readFloat<T>(key: string, alt?: T) : any {
-    const value = read(key) as any;
-
-    if (typeof value !== 'undefined') {
-        return toFloat(value) ?? alt;
-    }
-
-    return alt;
-}
+export const readFloat : Envix['readFloat'] = envix.readFloat.bind(envix);

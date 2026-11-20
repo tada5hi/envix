@@ -1,20 +1,4 @@
-import { readArray } from './read-array';
-import { toNumber } from '../utils';
+import { envix } from '../instance';
+import type { Envix } from '../module';
 
-export function readNumberArray(key: string) : number[] | undefined {
-    const value = readArray(key);
-
-    if (!value) {
-        return undefined;
-    }
-
-    const nums = value.map((el) => toNumber(el));
-
-    const hasInvalidNumber = nums.some((el) => typeof el === 'undefined');
-
-    if (hasInvalidNumber) {
-        return undefined;
-    }
-
-    return nums as number[];
-}
+export const readNumberArray : Envix['readNumberArray'] = envix.readNumberArray.bind(envix);
