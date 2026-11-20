@@ -4,7 +4,7 @@ A cross-runtime environment-variable reader, parser and writer.
 
 ## Quick Reference
 
-Use Node 24.11 or newer within the 24.x line for development and npm for dependency management. Published Node runtime: `>=18.0.0`. Build-tool requirements do not authorize changing the published runtime contract.
+Use Node 24.11 or newer within the 24.x line for development and npm for dependency management. Published Node runtime: `>=24.0.0`. Build-tool requirements do not authorize changing the published runtime contract.
 
 ```bash
 npm ci
